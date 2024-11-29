@@ -59,11 +59,18 @@ import {
   useGlobalActions
 } from "@plasmicapp/react-web/lib/host";
 
+import {
+  executePlasmicDataOp,
+  usePlasmicDataOp,
+  usePlasmicInvalidate
+} from "@plasmicapp/react-web/lib/data-sources";
+
 import Announcement from "../../Announcement"; // plasmic-import: 74wMr0MHOIvu/component
 import TextInput from "../../TextInput"; // plasmic-import: bHBHAUgVrtBR/component
 import { Fetcher } from "@plasmicapp/react-web/lib/data-sources";
 import Button from "../../Button"; // plasmic-import: WchpUmJB60Ft/component
 import Drawer2 from "../../Drawer2"; // plasmic-import: z4jI45IOYaM3/component
+import { LottieWrapper } from "@plasmicpkgs/lottie-react";
 
 import { useScreenVariants as useScreenVariantsy0D3Ma4XqRe } from "./PlasmicGlobalVariant__Screen"; // plasmic-import: _y0d3MA4xqRe/globalVariant
 
@@ -81,6 +88,16 @@ import BarsSolidSvgIcon from "./icons/PlasmicIcon__BarsSolidSvg"; // plasmic-imp
 import CircleUserSolidSvgIcon from "./icons/PlasmicIcon__CircleUserSolidSvg"; // plasmic-import: tw1leLohR_B9/icon
 import Icon2Icon from "./icons/PlasmicIcon__Icon2"; // plasmic-import: MkJgUqsQnajD/icon
 import HeartSolidSvgIcon from "./icons/PlasmicIcon__HeartSolidSvg"; // plasmic-import: fP9zRu2keVnl/icon
+import Icon12Icon from "./icons/PlasmicIcon__Icon12"; // plasmic-import: AELhgG3mYfl7/icon
+import Icon13Icon from "./icons/PlasmicIcon__Icon13"; // plasmic-import: u5QTbge-kKYC/icon
+import Icon9Icon from "./icons/PlasmicIcon__Icon9"; // plasmic-import: U0HLDgPQr_5a/icon
+import Icon7Icon from "./icons/PlasmicIcon__Icon7"; // plasmic-import: U65DjGna_4rA/icon
+import Icon14Icon from "./icons/PlasmicIcon__Icon14"; // plasmic-import: f1a5hkpnJoYe/icon
+import Icon15Icon from "./icons/PlasmicIcon__Icon15"; // plasmic-import: IyCtl8dE2dO4/icon
+import Icon16Icon from "./icons/PlasmicIcon__Icon16"; // plasmic-import: -u_6QIGSECgc/icon
+import Icon8Icon from "./icons/PlasmicIcon__Icon8"; // plasmic-import: P_eUcpHXzwsS/icon
+import Icon17Icon from "./icons/PlasmicIcon__Icon17"; // plasmic-import: Q4F_sOw14T8F/icon
+import Icon10Icon from "./icons/PlasmicIcon__Icon10"; // plasmic-import: fHrBi3K8e_fs/icon
 
 createPlasmicElementProxy;
 
@@ -105,10 +122,11 @@ export type PlasmicMyAccountPage__OverridesType = {
   categoryStack?: Flex__<"div">;
   dataFetcher?: Flex__<typeof Fetcher>;
   categoryBtn?: Flex__<"div">;
-  h1?: Flex__<"h1">;
-  button?: Flex__<typeof Button>;
   drawer2?: Flex__<typeof Drawer2>;
   dataFetcher3?: Flex__<typeof Fetcher>;
+  section?: Flex__<"section">;
+  textInput2?: Flex__<typeof TextInput>;
+  textInput3?: Flex__<typeof TextInput>;
 };
 
 export interface DefaultMyAccountPageProps {}
@@ -151,6 +169,9 @@ function PlasmicMyAccountPage__RenderFunc(props: {
   const refsRef = React.useRef({});
   const $refs = refsRef.current;
 
+  let [$queries, setDollarQueries] = React.useState<
+    Record<string, ReturnType<typeof usePlasmicDataOp>>
+  >({});
   const stateSpecs: Parameters<typeof useDollarState>[0] = React.useMemo(
     () => [
       {
@@ -164,6 +185,18 @@ function PlasmicMyAccountPage__RenderFunc(props: {
         type: "private",
         variableType: "boolean",
         initFunc: ({ $props, $state, $queries, $ctx }) => false
+      },
+      {
+        path: "textInput2.value",
+        type: "private",
+        variableType: "text",
+        initFunc: ({ $props, $state, $queries, $ctx }) => ""
+      },
+      {
+        path: "textInput3.value",
+        type: "private",
+        variableType: "text",
+        initFunc: ({ $props, $state, $queries, $ctx }) => ""
       }
     ],
     [$props, $ctx, $refs]
@@ -171,9 +204,27 @@ function PlasmicMyAccountPage__RenderFunc(props: {
   const $state = useDollarState(stateSpecs, {
     $props,
     $ctx,
-    $queries: {},
+    $queries: $queries,
     $refs
   });
+
+  const new$Queries: Record<string, ReturnType<typeof usePlasmicDataOp>> = {
+    query: usePlasmicDataOp(() => {
+      return {
+        sourceId: "cbwfjoUNWks1Vu8onJKXx8",
+        opId: "84f60dfa-f162-41fd-9e42-9605189b237d",
+        userArgs: {},
+        cacheKey: `plasmic.$.84f60dfa-f162-41fd-9e42-9605189b237d.$.`,
+        invalidatedKeys: null,
+        roleId: null
+      };
+    })
+  };
+  if (Object.keys(new$Queries).some(k => new$Queries[k] !== $queries[k])) {
+    setDollarQueries(new$Queries);
+
+    $queries = new$Queries;
+  }
 
   const globalVariants = ensureGlobalVariants({
     screen: useScreenVariantsy0D3Ma4XqRe()
@@ -308,7 +359,7 @@ function PlasmicMyAccountPage__RenderFunc(props: {
                     invalidatedKeys: null,
                     roleId: null
                   }}
-                  queries={{}}
+                  queries={$queries}
                 >
                   {($queries: any) =>
                     (_par =>
@@ -434,7 +485,7 @@ function PlasmicMyAccountPage__RenderFunc(props: {
                     invalidatedKeys: null,
                     roleId: null
                   }}
-                  queries={{}}
+                  queries={$queries}
                 >
                   {($queries: any) =>
                     (_par =>
@@ -466,13 +517,11 @@ function PlasmicMyAccountPage__RenderFunc(props: {
                           key={currentIndex}
                         >
                           <h1
-                            data-plasmic-name={"h1"}
-                            data-plasmic-override={overrides.h1}
                             className={classNames(
                               projectcss.all,
                               projectcss.h1,
                               projectcss.__wab_text,
-                              sty.h1
+                              sty.h1___1VSpq
                             )}
                           >
                             <React.Fragment>
@@ -506,9 +555,7 @@ function PlasmicMyAccountPage__RenderFunc(props: {
                   : false
               ) ? (
                 <Button
-                  data-plasmic-name={"button"}
-                  data-plasmic-override={overrides.button}
-                  className={classNames("__wab_instance", sty.button)}
+                  className={classNames("__wab_instance", sty.button__s4ZjX)}
                   color={
                     hasVariant(globalVariants, "screen", "mobileOnly")
                       ? "clear"
@@ -590,7 +637,7 @@ function PlasmicMyAccountPage__RenderFunc(props: {
                     invalidatedKeys: null,
                     roleId: null
                   }}
-                  queries={{}}
+                  queries={$queries}
                 >
                   {($queries: any) =>
                     (_par =>
@@ -644,6 +691,13355 @@ function PlasmicMyAccountPage__RenderFunc(props: {
               </Stack__>
             </div>
           </section>
+          <div className={classNames(projectcss.all, sty.freeBox__umWlo)}>
+            <div className={classNames(projectcss.all, sty.freeBox___62Chr)}>
+              <div className={classNames(projectcss.all, sty.freeBox__wz79Y)}>
+                <h1
+                  className={classNames(
+                    projectcss.all,
+                    projectcss.h1,
+                    projectcss.__wab_text,
+                    sty.h1__y8UAj
+                  )}
+                >
+                  {"Hii, Kangu"}
+                </h1>
+              </div>
+            </div>
+            <div className={classNames(projectcss.all, sty.freeBox__mUk1)}>
+              <h1
+                className={classNames(
+                  projectcss.all,
+                  projectcss.h1,
+                  projectcss.__wab_text,
+                  sty.h1__gqLul
+                )}
+              >
+                {"I hope you doin well"}
+              </h1>
+              <Stack__
+                as={"div"}
+                hasGap={true}
+                className={classNames(projectcss.all, sty.freeBox__c1Hu7)}
+              >
+                <div
+                  className={classNames(projectcss.all, sty.freeBox___3PsKb)}
+                >
+                  <LottieWrapper
+                    animationData={{
+                      v: "5.6.3",
+                      fr: 30,
+                      ip: 0,
+                      op: 120,
+                      w: 300,
+                      h: 180,
+                      nm: "Certify",
+                      ddd: 0,
+                      assets: [
+                        {
+                          id: "comp_0",
+                          layers: [
+                            {
+                              ddd: 0,
+                              ind: 1,
+                              ty: 4,
+                              nm: "tick/Approved Outlines",
+                              sr: 1,
+                              ks: {
+                                o: { a: 0, k: 100, ix: 11 },
+                                r: { a: 0, k: 0, ix: 10 },
+                                p: { a: 0, k: [148, 94, 0], ix: 2 },
+                                a: { a: 0, k: [29, 21.5, 0], ix: 1 },
+                                s: { a: 0, k: [100, 100, 100], ix: 6 }
+                              },
+                              ao: 0,
+                              hasMask: true,
+                              masksProperties: [
+                                {
+                                  inv: false,
+                                  mode: "a",
+                                  pt: {
+                                    a: 1,
+                                    k: [
+                                      {
+                                        i: { x: 0.667, y: 1 },
+                                        o: { x: 0.333, y: 0 },
+                                        t: 22,
+                                        s: [
+                                          {
+                                            i: [
+                                              [0, 0],
+                                              [0, 0],
+                                              [0, 0],
+                                              [0, 0]
+                                            ],
+                                            o: [
+                                              [0, 0],
+                                              [0, 0],
+                                              [0, 0],
+                                              [0, 0]
+                                            ],
+                                            v: [
+                                              [2.555, -0.434],
+                                              [-12.695, 26.856],
+                                              [-1.954, 20.356],
+                                              [1.046, 10.816]
+                                            ],
+                                            c: true
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        i: { x: 0.667, y: 1 },
+                                        o: { x: 0.333, y: 0 },
+                                        t: 28,
+                                        s: [
+                                          {
+                                            i: [
+                                              [0, 0],
+                                              [0, 0],
+                                              [0, 0],
+                                              [0, 0]
+                                            ],
+                                            o: [
+                                              [0, 0],
+                                              [0, 0],
+                                              [0, 0],
+                                              [0, 0]
+                                            ],
+                                            v: [
+                                              [2.555, -0.434],
+                                              [-5.695, 43.856],
+                                              [17.296, 44.856],
+                                              [17.796, 21.816]
+                                            ],
+                                            c: true
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        t: 35,
+                                        s: [
+                                          {
+                                            i: [
+                                              [0, 0],
+                                              [0, 0],
+                                              [0, 0],
+                                              [0, 0]
+                                            ],
+                                            o: [
+                                              [0, 0],
+                                              [0, 0],
+                                              [0, 0],
+                                              [0, 0]
+                                            ],
+                                            v: [
+                                              [2.555, -0.434],
+                                              [-5.695, 43.856],
+                                              [58.796, 42.856],
+                                              [58.546, -0.434]
+                                            ],
+                                            c: true
+                                          }
+                                        ]
+                                      }
+                                    ],
+                                    ix: 1
+                                  },
+                                  o: { a: 0, k: 100, ix: 3 },
+                                  x: { a: 0, k: 0, ix: 4 },
+                                  nm: "Mask 1"
+                                }
+                              ],
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [1.952, -1.586],
+                                            [0, 0],
+                                            [1.127, 1.349],
+                                            [0, 0],
+                                            [-1.932, 1.61],
+                                            [-1.608, -1.932],
+                                            [0, 0],
+                                            [-1.366, 1.111],
+                                            [0, 0],
+                                            [-1.586, -1.952]
+                                          ],
+                                          o: [
+                                            [0, 0],
+                                            [-1.364, 1.109],
+                                            [0, 0],
+                                            [-1.613, -1.931],
+                                            [1.931, -1.608],
+                                            [0, 0],
+                                            [1.126, 1.353],
+                                            [0, 0],
+                                            [1.952, -1.586],
+                                            [1.587, 1.952]
+                                          ],
+                                          v: [
+                                            [26.308, -10.801],
+                                            [-9.564, 18.348],
+                                            [-14.058, 17.915],
+                                            [-26.943, 2.489],
+                                            [-26.365, -3.925],
+                                            [-19.956, -3.339],
+                                            [-12.854, 5.19],
+                                            [-8.358, 5.628],
+                                            [20.563, -17.871],
+                                            [26.969, -17.208]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          0.9764705882352941,
+                                          0.9764705882352941,
+                                          0.9764705882352941, 1
+                                        ],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [28.806, 19.707], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Group 1",
+                                  np: 3,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                },
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [1.952, -1.586],
+                                            [0, 0],
+                                            [1.127, 1.349],
+                                            [0, 0],
+                                            [-1.932, 1.61],
+                                            [-1.608, -1.932],
+                                            [0, 0],
+                                            [-1.366, 1.111],
+                                            [0, 0],
+                                            [-1.586, -1.952]
+                                          ],
+                                          o: [
+                                            [0, 0],
+                                            [-1.364, 1.109],
+                                            [0, 0],
+                                            [-1.613, -1.931],
+                                            [1.931, -1.608],
+                                            [0, 0],
+                                            [1.126, 1.353],
+                                            [0, 0],
+                                            [1.952, -1.586],
+                                            [1.587, 1.952]
+                                          ],
+                                          v: [
+                                            [26.308, -10.801],
+                                            [-9.564, 18.348],
+                                            [-14.058, 17.915],
+                                            [-26.943, 2.489],
+                                            [-26.365, -3.925],
+                                            [-19.956, -3.339],
+                                            [-12.854, 5.19],
+                                            [-8.358, 5.628],
+                                            [20.563, -17.871],
+                                            [26.969, -17.208]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "mm",
+                                      mm: 4,
+                                      nm: "Merge Paths 1",
+                                      mn: "ADBE Vector Filter - Merge",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          0.8823529411764706,
+                                          0.5803921568627451,
+                                          0.08235294117647059, 1
+                                        ],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [28.806, 23.038], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Group 2",
+                                  np: 3,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 2,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 0,
+                              op: 1836,
+                              st: 0,
+                              bm: 0
+                            },
+                            {
+                              ddd: 0,
+                              ind: 3,
+                              ty: 4,
+                              nm: "circle/Approved Outlines",
+                              sr: 1,
+                              ks: {
+                                o: { a: 0, k: 100, ix: 11 },
+                                r: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: [0.667], y: [1] },
+                                      o: { x: [0.333], y: [0] },
+                                      t: 0,
+                                      s: [-67]
+                                    },
+                                    { t: 61, s: [0] }
+                                  ],
+                                  ix: 10
+                                },
+                                p: { a: 0, k: [150, 90, 0], ix: 2 },
+                                a: { a: 0, k: [61.5, 59, 0], ix: 1 },
+                                s: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: {
+                                        x: [0.667, 0.667, 0.667],
+                                        y: [1, 1, 1]
+                                      },
+                                      o: {
+                                        x: [0.333, 0.333, 0.333],
+                                        y: [0, 0, 0]
+                                      },
+                                      t: 0,
+                                      s: [0, 0, 100]
+                                    },
+                                    { t: 22, s: [100, 100, 100] }
+                                  ],
+                                  ix: 6
+                                }
+                              },
+                              ao: 0,
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [22.357, 0],
+                                            [0, 22.357],
+                                            [-22.356, 0],
+                                            [0, -22.356]
+                                          ],
+                                          o: [
+                                            [-22.356, 0],
+                                            [0, -22.356],
+                                            [22.357, 0],
+                                            [0, 22.357]
+                                          ],
+                                          v: [
+                                            [0, 40.557],
+                                            [-40.558, -0.001],
+                                            [0, -40.557],
+                                            [40.558, -0.001]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ind: 1,
+                                      ty: "sh",
+                                      ix: 2,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [24.837, 0],
+                                            [0, -24.837],
+                                            [-24.837, 0],
+                                            [0, 24.838]
+                                          ],
+                                          o: [
+                                            [-24.837, 0],
+                                            [0, 24.838],
+                                            [24.837, 0],
+                                            [0, -24.837]
+                                          ],
+                                          v: [
+                                            [0, -44.962],
+                                            [-44.962, -0.001],
+                                            [0, 44.962],
+                                            [44.962, -0.001]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 2",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "mm",
+                                      mm: 1,
+                                      nm: "Merge Paths 1",
+                                      mn: "ADBE Vector Filter - Merge",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "gr",
+                                      it: [
+                                        {
+                                          ty: "tr",
+                                          p: { a: 0, k: [0, 0], ix: 2 },
+                                          a: { a: 0, k: [0, 0], ix: 1 },
+                                          s: { a: 0, k: [100, 100], ix: 3 },
+                                          r: { a: 0, k: 0, ix: 6 },
+                                          o: { a: 0, k: 100, ix: 7 },
+                                          sk: { a: 0, k: 0, ix: 4 },
+                                          sa: { a: 0, k: 0, ix: 5 },
+                                          nm: "Transform"
+                                        }
+                                      ],
+                                      nm: "Group 1",
+                                      np: 0,
+                                      cix: 2,
+                                      bm: 0,
+                                      ix: 4,
+                                      mn: "ADBE Vector Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "mm",
+                                      mm: 4,
+                                      nm: "Merge Paths 2",
+                                      mn: "ADBE Vector Filter - Merge",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          0.9764705882352941,
+                                          0.6941176470588235,
+                                          0.12941176470588237, 1
+                                        ],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [59.95, 59.608], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Group 1",
+                                  np: 6,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                },
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [21.529, 0],
+                                            [0, 21.529],
+                                            [-21.528, 0],
+                                            [0, -21.528]
+                                          ],
+                                          o: [
+                                            [-21.528, 0],
+                                            [0, -21.528],
+                                            [21.529, 0],
+                                            [0, 21.529]
+                                          ],
+                                          v: [
+                                            [0, 39.056],
+                                            [-39.056, 0],
+                                            [0, -39.055],
+                                            [39.056, 0]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ind: 1,
+                                      ty: "sh",
+                                      ix: 2,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [23.917, 0],
+                                            [0, -23.917],
+                                            [-23.917, 0],
+                                            [0, 23.918]
+                                          ],
+                                          o: [
+                                            [-23.917, 0],
+                                            [0, 23.918],
+                                            [23.917, 0],
+                                            [0, -23.917]
+                                          ],
+                                          v: [
+                                            [0, -43.297],
+                                            [-43.297, 0],
+                                            [0, 43.297],
+                                            [43.297, 0]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 2",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "mm",
+                                      mm: 1,
+                                      nm: "Merge Paths 1",
+                                      mn: "ADBE Vector Filter - Merge",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "mm",
+                                      mm: 4,
+                                      nm: "Merge Paths 2",
+                                      mn: "ADBE Vector Filter - Merge",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          0.9764705882352941,
+                                          0.9764705882352941,
+                                          0.9764705882352941, 1
+                                        ],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [59.95, 59.608], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Group 2",
+                                  np: 5,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 2,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                },
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ty: "gr",
+                                      it: [
+                                        {
+                                          ind: 0,
+                                          ty: "sh",
+                                          ix: 1,
+                                          ks: {
+                                            a: 0,
+                                            k: {
+                                              i: [
+                                                [0, -22.356],
+                                                [-22.356, 0],
+                                                [0, 22.356],
+                                                [22.357, 0]
+                                              ],
+                                              o: [
+                                                [0, 22.356],
+                                                [22.357, 0],
+                                                [0, -22.356],
+                                                [-22.356, 0]
+                                              ],
+                                              v: [
+                                                [-40.558, 0],
+                                                [0, 40.557],
+                                                [40.558, 0],
+                                                [0, -40.557]
+                                              ],
+                                              c: true
+                                            },
+                                            ix: 2
+                                          },
+                                          nm: "Path 2",
+                                          mn: "ADBE Vector Shape - Group",
+                                          hd: false
+                                        },
+                                        {
+                                          ty: "tr",
+                                          p: { a: 0, k: [0, 0], ix: 2 },
+                                          a: { a: 0, k: [0, 0], ix: 1 },
+                                          s: { a: 0, k: [100, 100], ix: 3 },
+                                          r: { a: 0, k: 0, ix: 6 },
+                                          o: { a: 0, k: 100, ix: 7 },
+                                          sk: { a: 0, k: 0, ix: 4 },
+                                          sa: { a: 0, k: 0, ix: 5 },
+                                          nm: "Transform"
+                                        }
+                                      ],
+                                      nm: "Group 1",
+                                      np: 1,
+                                      cix: 2,
+                                      bm: 0,
+                                      ix: 1,
+                                      mn: "ADBE Vector Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "mm",
+                                      mm: 4,
+                                      nm: "Merge Paths 1",
+                                      mn: "ADBE Vector Filter - Merge",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "gf",
+                                      o: { a: 0, k: 100, ix: 10 },
+                                      r: 1,
+                                      bm: 0,
+                                      g: {
+                                        p: 3,
+                                        k: {
+                                          a: 0,
+                                          k: [
+                                            0, 1, 0.8745098039215686, 0.4,
+                                            0.476, 1, 0.788235294117647,
+                                            0.12156862745098039, 1, 1,
+                                            0.788235294117647,
+                                            0.12156862745098039
+                                          ],
+                                          ix: 9
+                                        }
+                                      },
+                                      s: { a: 0, k: [0.096, -42], ix: 5 },
+                                      e: { a: 0, k: [1.168, 41.5], ix: 6 },
+                                      t: 1,
+                                      nm: "Gradient Fill 1",
+                                      mn: "ADBE Vector Graphic - G-Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [59.95, 59.608], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Group 3",
+                                  np: 3,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 3,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                },
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [1.022, -0.335],
+                                            [0, 0],
+                                            [2.015, 0.649],
+                                            [0, 0],
+                                            [2.557, -3.514],
+                                            [0, 0],
+                                            [2.007, -0.658],
+                                            [0, 0],
+                                            [0, -4.346],
+                                            [0, 0],
+                                            [1.24, -1.716],
+                                            [0, 0],
+                                            [-2.556, -3.505],
+                                            [0, 0],
+                                            [0, -2.123],
+                                            [0, 0],
+                                            [-4.13, -1.339],
+                                            [0, 0],
+                                            [-1.249, -1.716],
+                                            [0, 0],
+                                            [-4.13, 1.339],
+                                            [0, 0],
+                                            [-2.015, -0.659],
+                                            [0, 0],
+                                            [-2.548, 3.513],
+                                            [0, 0],
+                                            [-2.015, 0.658],
+                                            [0, 0],
+                                            [0.009, 4.346],
+                                            [0, 0],
+                                            [-1.241, 1.706],
+                                            [0, 0],
+                                            [2.555, 3.514],
+                                            [0, 0],
+                                            [0, 2.115],
+                                            [0, 0],
+                                            [4.13, 1.332],
+                                            [0, 0],
+                                            [1.249, 1.706],
+                                            [0, 0],
+                                            [3.142, 0]
+                                          ],
+                                          o: [
+                                            [0, 0],
+                                            [-2.006, 0.658],
+                                            [0, 0],
+                                            [-4.13, -1.34],
+                                            [0, 0],
+                                            [-1.24, 1.715],
+                                            [0, 0],
+                                            [-4.121, 1.34],
+                                            [0, 0],
+                                            [0, 2.115],
+                                            [0, 0],
+                                            [-2.556, 3.514],
+                                            [0, 0],
+                                            [1.248, 1.716],
+                                            [0, 0],
+                                            [0.009, 4.346],
+                                            [0, 0],
+                                            [2.015, 0.649],
+                                            [0, 0],
+                                            [2.556, 3.513],
+                                            [0, 0],
+                                            [2.015, -0.65],
+                                            [0, 0],
+                                            [4.131, 1.341],
+                                            [0, 0],
+                                            [1.249, -1.715],
+                                            [0, 0],
+                                            [4.13, -1.349],
+                                            [0, 0],
+                                            [0, -2.115],
+                                            [0, 0],
+                                            [2.548, -3.513],
+                                            [0, 0],
+                                            [-1.249, -1.707],
+                                            [0, 0],
+                                            [0, -4.347],
+                                            [0, 0],
+                                            [-2.015, -0.658],
+                                            [0, 0],
+                                            [-1.922, -2.642],
+                                            [-1.036, 0]
+                                          ],
+                                          v: [
+                                            [11.768, -82.794],
+                                            [2.442, -79.764],
+                                            [-3.753, -79.755],
+                                            [-13.07, -82.778],
+                                            [-24.277, -79.131],
+                                            [-30.031, -71.204],
+                                            [-35.035, -67.557],
+                                            [-44.361, -64.518],
+                                            [-51.28, -54.984],
+                                            [-51.271, -45.184],
+                                            [-53.178, -39.289],
+                                            [-58.932, -31.362],
+                                            [-58.924, -19.581],
+                                            [-53.161, -11.654],
+                                            [-51.246, -5.759],
+                                            [-51.238, 4.033],
+                                            [-44.302, 13.566],
+                                            [-34.984, 16.589],
+                                            [-29.964, 20.228],
+                                            [-24.202, 28.147],
+                                            [-12.995, 31.786],
+                                            [-3.678, 28.746],
+                                            [2.518, 28.746],
+                                            [11.842, 31.768],
+                                            [23.042, 28.121],
+                                            [28.795, 20.186],
+                                            [33.808, 16.539],
+                                            [43.125, 13.508],
+                                            [50.044, 3.967],
+                                            [50.036, -5.834],
+                                            [51.951, -11.72],
+                                            [57.704, -19.656],
+                                            [57.697, -31.438],
+                                            [51.935, -39.364],
+                                            [50.011, -45.251],
+                                            [50.003, -55.051],
+                                            [43.075, -64.576],
+                                            [33.749, -67.599],
+                                            [28.737, -71.237],
+                                            [22.975, -79.164],
+                                            [14.873, -83.29]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 2",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "mm",
+                                      mm: 1,
+                                      nm: "Merge Paths 1",
+                                      mn: "ADBE Vector Filter - Merge",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "gf",
+                                      o: { a: 0, k: 100, ix: 10 },
+                                      r: 1,
+                                      bm: 0,
+                                      g: {
+                                        p: 3,
+                                        k: {
+                                          a: 0,
+                                          k: [
+                                            0, 1, 0.8745098039215686, 0.4,
+                                            0.476, 1, 0.788235294117647,
+                                            0.12156862745098039, 1,
+                                            0.9764705882352941,
+                                            0.6941176470588235,
+                                            0.12941176470588237
+                                          ],
+                                          ix: 9
+                                        }
+                                      },
+                                      s: { a: 0, k: [-2.404, -76.5], ix: 5 },
+                                      e: { a: 0, k: [-0.832, 24.5], ix: 6 },
+                                      t: 1,
+                                      nm: "Gradient Fill 1",
+                                      mn: "ADBE Vector Graphic - G-Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [61.738, 84.368], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Group 4",
+                                  np: 3,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 4,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 0,
+                              op: 1836,
+                              st: 0,
+                              bm: 0
+                            },
+                            {
+                              ddd: 0,
+                              ind: 6,
+                              ty: 4,
+                              nm: "flag/Approved Outlines",
+                              sr: 1,
+                              ks: {
+                                o: { a: 0, k: 100, ix: 11 },
+                                r: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: [0.667], y: [1] },
+                                      o: { x: [0.333], y: [0] },
+                                      t: 21,
+                                      s: [14]
+                                    },
+                                    { t: 34, s: [0] }
+                                  ],
+                                  ix: 10
+                                },
+                                p: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: 0.667, y: 1 },
+                                      o: { x: 0.333, y: 0 },
+                                      t: 21,
+                                      s: [150, 106, 0],
+                                      to: [0, 9, 0],
+                                      ti: [0, -9, 0]
+                                    },
+                                    { t: 34, s: [150, 160, 0] }
+                                  ],
+                                  ix: 2
+                                },
+                                a: { a: 0, k: [26.5, 31.5, 0], ix: 1 },
+                                s: { a: 0, k: [100, 100, 100], ix: 6 }
+                              },
+                              ao: 0,
+                              ef: [
+                                {
+                                  ty: 5,
+                                  nm: "CC Bend It",
+                                  np: 7,
+                                  mn: "CC Bend It",
+                                  ix: 1,
+                                  en: 1,
+                                  ef: [
+                                    {
+                                      ty: 0,
+                                      nm: "Bend",
+                                      mn: "CC Bend It-0001",
+                                      ix: 1,
+                                      v: {
+                                        a: 1,
+                                        k: [
+                                          {
+                                            i: { x: [0.667], y: [0.687] },
+                                            o: { x: [0.333], y: [0] },
+                                            t: 23,
+                                            s: [-32]
+                                          },
+                                          {
+                                            i: { x: [0.667], y: [1] },
+                                            o: { x: [0.333], y: [-1.681] },
+                                            t: 42,
+                                            s: [6.845]
+                                          },
+                                          { t: 60, s: [0] }
+                                        ],
+                                        ix: 1
+                                      }
+                                    },
+                                    {
+                                      ty: 3,
+                                      nm: "Start",
+                                      mn: "CC Bend It-0002",
+                                      ix: 2,
+                                      v: { a: 0, k: [149, 140], ix: 2 }
+                                    },
+                                    {
+                                      ty: 3,
+                                      nm: "End",
+                                      mn: "CC Bend It-0003",
+                                      ix: 3,
+                                      v: { a: 0, k: [150, 60], ix: 3 }
+                                    },
+                                    {
+                                      ty: 7,
+                                      nm: "Render Prestart",
+                                      mn: "CC Bend It-0004",
+                                      ix: 4,
+                                      v: { a: 0, k: 3, ix: 4 }
+                                    },
+                                    {
+                                      ty: 7,
+                                      nm: "Distort",
+                                      mn: "CC Bend It-0005",
+                                      ix: 5,
+                                      v: { a: 0, k: 1, ix: 5 }
+                                    }
+                                  ]
+                                }
+                              ],
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          o: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          v: [
+                                            [10.073, -25.479],
+                                            [10.073, 25.479],
+                                            [0, 18.652],
+                                            [-10.073, 25.479],
+                                            [-10.073, -25.479]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          1, 0.896559536457, 0.896559536457, 1
+                                        ],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [26.062, 25.729], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Group 1",
+                                  np: 2,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                },
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          o: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          v: [
+                                            [7.87, -30.807],
+                                            [7.87, 20.15],
+                                            [-7.87, 30.807],
+                                            [-7.87, -30.807]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          0.8156862745098039,
+                                          0.00784313725490196,
+                                          0.10588235294117647, 1
+                                        ],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [8.119, 31.058], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Group 2",
+                                  np: 2,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 2,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                },
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          o: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          v: [
+                                            [7.869, -30.807],
+                                            [7.869, 30.807],
+                                            [-7.869, 20.15],
+                                            [-7.869, -30.807]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          0.8156862745098039,
+                                          0.00784313725490196,
+                                          0.10588235294117647, 1
+                                        ],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [44.004, 31.058], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Group 3",
+                                  np: 2,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 3,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 21,
+                              op: 1840,
+                              st: 4,
+                              bm: 0
+                            }
+                          ]
+                        },
+                        {
+                          id: "comp_1",
+                          layers: [
+                            {
+                              ddd: 0,
+                              ind: 1,
+                              ty: 4,
+                              nm: "hong 2",
+                              sr: 1,
+                              ks: {
+                                o: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: [0.833], y: [0.833] },
+                                      o: { x: [0.167], y: [0.167] },
+                                      t: 32.5,
+                                      s: [100]
+                                    },
+                                    { t: 37.5, s: [0] }
+                                  ],
+                                  ix: 11
+                                },
+                                r: { a: 0, k: 0, ix: 10 },
+                                p: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: 0.833, y: 0.968 },
+                                      o: { x: 0.333, y: 0 },
+                                      t: 0,
+                                      s: [-13.25, 74.406, 0],
+                                      to: [0, 0, 0],
+                                      ti: [-90.5, -10.844, 0]
+                                    },
+                                    {
+                                      i: { x: 0.667, y: 1 },
+                                      o: { x: 0.167, y: 0.538 },
+                                      t: 8.5,
+                                      s: [249.25, 15.656, 0],
+                                      to: [41.25, 8.594, 0],
+                                      ti: [25.5, -20.781, 0]
+                                    },
+                                    { t: 59.5, s: [248.25, 92.281, 0] }
+                                  ],
+                                  ix: 2
+                                },
+                                a: { a: 0, k: [154.25, -31.594, 0], ix: 1 },
+                                s: { a: 0, k: [100, 100, 100], ix: 6 }
+                              },
+                              ao: 0,
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          o: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          v: [
+                                            [150.969, -34.875],
+                                            [150.375, -29.531],
+                                            [157.906, -28.313],
+                                            [158.125, -33.594]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          0.980392156863, 0.462745098039,
+                                          0.592156862745, 1
+                                        ],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [0, 0], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Shape 1",
+                                  np: 3,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 0,
+                              op: 60,
+                              st: 0,
+                              bm: 0
+                            },
+                            {
+                              ddd: 0,
+                              ind: 2,
+                              ty: 4,
+                              nm: "vang cam 4",
+                              sr: 1,
+                              ks: {
+                                o: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: [0.833], y: [0.833] },
+                                      o: { x: [0.167], y: [0.167] },
+                                      t: 22.5,
+                                      s: [100]
+                                    },
+                                    { t: 27.5, s: [0] }
+                                  ],
+                                  ix: 11
+                                },
+                                r: { a: 0, k: 0, ix: 10 },
+                                p: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: 0.833, y: 0.966 },
+                                      o: { x: 0.333, y: 0 },
+                                      t: 0,
+                                      s: [-18.516, 80.75, 0],
+                                      to: [0, 0, 0],
+                                      ti: [-60.391, 3.125, 0]
+                                    },
+                                    {
+                                      i: { x: 0.667, y: 1 },
+                                      o: { x: 0.167, y: 0.476 },
+                                      t: 8.5,
+                                      s: [176.734, 27.625, 0],
+                                      to: [27.353, 14.741, 0],
+                                      ti: [0, 0, 0]
+                                    },
+                                    { t: 59.5, s: [141.484, 96.875, 0] }
+                                  ],
+                                  ix: 2
+                                },
+                                a: { a: 0, k: [124.234, 13.875, 0], ix: 1 },
+                                s: { a: 0, k: [100, 100, 100], ix: 6 }
+                              },
+                              ao: 0,
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          o: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          v: [
+                                            [123.375, 6.5],
+                                            [116.469, 17.5],
+                                            [125.25, 21.25],
+                                            [132, 10.375]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [1, 0.8431372549019608, 0, 1],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [0, 0], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Shape 1",
+                                  np: 3,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 0,
+                              op: 60,
+                              st: 0,
+                              bm: 0
+                            },
+                            {
+                              ddd: 0,
+                              ind: 3,
+                              ty: 4,
+                              nm: "xanh min 4",
+                              sr: 1,
+                              ks: {
+                                o: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: [0.833], y: [0.833] },
+                                      o: { x: [0.167], y: [0.167] },
+                                      t: 35,
+                                      s: [100]
+                                    },
+                                    { t: 40, s: [0] }
+                                  ],
+                                  ix: 11
+                                },
+                                r: { a: 0, k: 0, ix: 10 },
+                                p: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: 0.833, y: 0.967 },
+                                      o: { x: 0.333, y: 0 },
+                                      t: 0,
+                                      s: [-17.578, 80.859, 0],
+                                      to: [79.328, -39.859, 0],
+                                      ti: [-39.453, -1.391, 0]
+                                    },
+                                    {
+                                      i: { x: 0.667, y: 1 },
+                                      o: { x: 0.167, y: 0.529 },
+                                      t: 8.5,
+                                      s: [220.797, 12.859, 0],
+                                      to: [50.953, 12.641, 0],
+                                      ti: [0, 0, 0]
+                                    },
+                                    { t: 59.5, s: [254.922, 87.484, 0] }
+                                  ],
+                                  ix: 2
+                                },
+                                a: { a: 0, k: [75.922, 18.484, 0], ix: 1 },
+                                s: { a: 0, k: [100, 100, 100], ix: 6 }
+                              },
+                              ao: 0,
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [0.781, 3.063],
+                                            [1.313, -1.25],
+                                            [-2.563, -0.406],
+                                            [-1.156, 1.094]
+                                          ],
+                                          o: [
+                                            [-1.313, 1.344],
+                                            [0.469, 2.656],
+                                            [1.469, -1.188],
+                                            [-2.844, -0.875]
+                                          ],
+                                          v: [
+                                            [75.156, 13.406],
+                                            [70.594, 18],
+                                            [76.719, 23.563],
+                                            [81.25, 19.281]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          0.188235294118, 0.839215686275,
+                                          0.686274509804, 1
+                                        ],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [0, 0], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Shape 1",
+                                  np: 3,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 0,
+                              op: 60,
+                              st: 0,
+                              bm: 0
+                            },
+                            {
+                              ddd: 0,
+                              ind: 4,
+                              ty: 4,
+                              nm: "xanh duong 2",
+                              sr: 1,
+                              ks: {
+                                o: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: [0.833], y: [0.833] },
+                                      o: { x: [0.167], y: [0.167] },
+                                      t: 24,
+                                      s: [100]
+                                    },
+                                    { t: 29, s: [0] }
+                                  ],
+                                  ix: 11
+                                },
+                                r: { a: 0, k: 0, ix: 10 },
+                                p: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: 0.833, y: 0.963 },
+                                      o: { x: 0.333, y: 0 },
+                                      t: 0,
+                                      s: [-19.734, 84.563, 0],
+                                      to: [12.792, -17.146, 0],
+                                      ti: [-46.484, -8.813, 0]
+                                    },
+                                    {
+                                      i: { x: 0.667, y: 1 },
+                                      o: { x: 0.167, y: 0.392 },
+                                      t: 8.5,
+                                      s: [125.516, 37.688, 0],
+                                      to: [20.967, 15.863, 0],
+                                      ti: [24.167, -7.917, 0]
+                                    },
+                                    { t: 59.5, s: [69.266, 92.938, 0] }
+                                  ],
+                                  ix: 2
+                                },
+                                a: { a: 0, k: [20.266, 28.938, 0], ix: 1 },
+                                s: { a: 0, k: [100, 100, 100], ix: 6 }
+                              },
+                              ao: 0,
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          o: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          v: [
+                                            [21.969, 23.219],
+                                            [14.594, 29.781],
+                                            [18.563, 34.656],
+                                            [25.938, 28.25]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          0.247058823529, 0.403921568627,
+                                          0.949019607843, 1
+                                        ],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [0, 0], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Shape 1",
+                                  np: 3,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 0,
+                              op: 60,
+                              st: 0,
+                              bm: 0
+                            },
+                            {
+                              ddd: 0,
+                              ind: 5,
+                              ty: 4,
+                              nm: "do cam 2",
+                              sr: 1,
+                              ks: {
+                                o: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: [0.833], y: [0.833] },
+                                      o: { x: [0.167], y: [0.167] },
+                                      t: 20,
+                                      s: [100]
+                                    },
+                                    { t: 25, s: [0] }
+                                  ],
+                                  ix: 11
+                                },
+                                r: { a: 0, k: 0, ix: 10 },
+                                p: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: 0.833, y: 0.968 },
+                                      o: { x: 0.333, y: 0 },
+                                      t: 0,
+                                      s: [-17.078, 79.531, 0],
+                                      to: [0, 0, 0],
+                                      ti: [-87.328, -22.969, 0]
+                                    },
+                                    {
+                                      i: { x: 0.667, y: 1 },
+                                      o: { x: 0.167, y: 0.569 },
+                                      t: 8.5,
+                                      s: [218.672, 29.031, 0],
+                                      to: [-2.672, 43.719, 0],
+                                      ti: [0, 0, 0]
+                                    },
+                                    { t: 59.5, s: [176.172, 95.906, 0] }
+                                  ],
+                                  ix: 2
+                                },
+                                a: { a: 0, k: [-167.828, 29.156, 0], ix: 1 },
+                                s: { a: 0, k: [100, 100, 100], ix: 6 }
+                              },
+                              ao: 0,
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [0, 3.344],
+                                            [1.875, -1.844],
+                                            [-3.781, -0.125],
+                                            [-1.875, 2]
+                                          ],
+                                          o: [
+                                            [-1.625, 1.625],
+                                            [0.094, 2.531],
+                                            [1.688, -1.656],
+                                            [-3.906, 0.844]
+                                          ],
+                                          v: [
+                                            [-167.875, 23.719],
+                                            [-173.906, 29.563],
+                                            [-167.875, 34.594],
+                                            [-161.75, 28.25]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          1, 0.505882352941, 0.392156862745, 1
+                                        ],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [0, 0], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Shape 1",
+                                  np: 3,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 0,
+                              op: 60,
+                              st: 0,
+                              bm: 0
+                            },
+                            {
+                              ddd: 0,
+                              ind: 6,
+                              ty: 4,
+                              nm: "vang cam 3",
+                              sr: 1,
+                              ks: {
+                                o: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: [0.833], y: [0.833] },
+                                      o: { x: [0.167], y: [0.167] },
+                                      t: 25,
+                                      s: [100]
+                                    },
+                                    { t: 30, s: [0] }
+                                  ],
+                                  ix: 11
+                                },
+                                r: { a: 0, k: 0, ix: 10 },
+                                p: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: 0.833, y: 0.972 },
+                                      o: { x: 0.333, y: 0 },
+                                      t: 0,
+                                      s: [-19.391, 83.426, 0],
+                                      to: [0, 0, 0],
+                                      ti: [-108.391, -17.199, 0]
+                                    },
+                                    {
+                                      i: { x: 0.667, y: 1 },
+                                      o: { x: 0.167, y: 0.899 },
+                                      t: 8.5,
+                                      s: [255.859, 43.301, 0],
+                                      to: [20.641, 12.949, 0],
+                                      ti: [0, 0, 0]
+                                    },
+                                    { t: 59.5, s: [277.359, 89.676, 0] }
+                                  ],
+                                  ix: 2
+                                },
+                                a: { a: 0, k: [-120.641, -26.949, 0], ix: 1 },
+                                s: { a: 0, k: [100, 100, 100], ix: 6 }
+                              },
+                              ao: 0,
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [2.063, 1.5],
+                                            [0.688, -1.344],
+                                            [-2.688, 0.719],
+                                            [-0.031, 1.688]
+                                          ],
+                                          o: [
+                                            [-0.719, 1.406],
+                                            [2, 2.219],
+                                            [0.031, -1.5],
+                                            [-2.375, 0.313]
+                                          ],
+                                          v: [
+                                            [-123.156, -30.281],
+                                            [-125.344, -26.156],
+                                            [-116.063, -23.875],
+                                            [-115.938, -28.563]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [1, 0.8431372549019608, 0, 1],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [0, 0], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Shape 1",
+                                  np: 3,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 0,
+                              op: 60,
+                              st: 0,
+                              bm: 0
+                            },
+                            {
+                              ddd: 0,
+                              ind: 7,
+                              ty: 4,
+                              nm: "xanh min 3",
+                              sr: 1,
+                              ks: {
+                                o: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: [0.833], y: [0.833] },
+                                      o: { x: [0.167], y: [0.167] },
+                                      t: 32.5,
+                                      s: [100]
+                                    },
+                                    { t: 37.5, s: [0] }
+                                  ],
+                                  ix: 11
+                                },
+                                r: { a: 0, k: 0, ix: 10 },
+                                p: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: 0.833, y: 0.967 },
+                                      o: { x: 0.333, y: 0 },
+                                      t: 0,
+                                      s: [-13.797, 79.641, 0],
+                                      to: [0, 0, 0],
+                                      ti: [-72.672, 1.766, 0]
+                                    },
+                                    {
+                                      i: { x: 0.667, y: 1 },
+                                      o: { x: 0.167, y: 0.533 },
+                                      t: 8.5,
+                                      s: [198.703, 15.141, 0],
+                                      to: [10.672, 43.234, 0],
+                                      ti: [0, 0, 0]
+                                    },
+                                    { t: 59.5, s: [181.203, 92.141, 0] }
+                                  ],
+                                  ix: 2
+                                },
+                                a: { a: 0, k: [-179.781, -30.328, 0], ix: 1 },
+                                s: { a: 0, k: [100, 100, 100], ix: 6 }
+                              },
+                              ao: 0,
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          o: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          v: [
+                                            [-180.016, -34.984],
+                                            [-183.828, -31.438],
+                                            [-179.547, -25.672],
+                                            [-175.734, -29.141]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          0.1882353127, 0.839215755463,
+                                          0.686274528503, 1
+                                        ],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [0, 0], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Shape 1",
+                                  np: 2,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 0,
+                              op: 60,
+                              st: 0,
+                              bm: 0
+                            },
+                            {
+                              ddd: 0,
+                              ind: 8,
+                              ty: 4,
+                              nm: "dot 4",
+                              sr: 1,
+                              ks: {
+                                o: { a: 0, k: 100, ix: 11 },
+                                r: { a: 0, k: 0, ix: 10 },
+                                p: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: 0.667, y: 1 },
+                                      o: { x: 0.333, y: 0 },
+                                      t: 15,
+                                      s: [242.625, -5.875, 0],
+                                      to: [0, 0, 0],
+                                      ti: [99.5, -8, 0]
+                                    },
+                                    { t: 42.5, s: [95, 90.25, 0] }
+                                  ],
+                                  ix: 2
+                                },
+                                a: { a: 0, k: [168.625, -49.375, 0], ix: 1 },
+                                s: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: {
+                                        x: [0.833, 0.833, 0.833],
+                                        y: [0.833, 0.833, 0.833]
+                                      },
+                                      o: {
+                                        x: [0.167, 0.167, 0.167],
+                                        y: [0.167, 0.167, 0.167]
+                                      },
+                                      t: 15,
+                                      s: [0, 0, 100]
+                                    },
+                                    {
+                                      i: {
+                                        x: [0.833, 0.833, 0.833],
+                                        y: [0.833, 0.833, 0.833]
+                                      },
+                                      o: {
+                                        x: [0.167, 0.167, 0.167],
+                                        y: [0.167, 0.167, 0.167]
+                                      },
+                                      t: 21.5,
+                                      s: [150, 150, 100]
+                                    },
+                                    {
+                                      i: {
+                                        x: [0.833, 0.833, 0.833],
+                                        y: [0.833, 0.833, 0.833]
+                                      },
+                                      o: {
+                                        x: [0.167, 0.167, 0.167],
+                                        y: [0.167, 0.167, 0.167]
+                                      },
+                                      t: 31.5,
+                                      s: [150, 150, 100]
+                                    },
+                                    { t: 35, s: [0, 0, 100] }
+                                  ],
+                                  ix: 6
+                                }
+                              },
+                              ao: 0,
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      d: 1,
+                                      ty: "el",
+                                      s: { a: 0, k: [3.5, 3.5], ix: 2 },
+                                      p: { a: 0, k: [0, 0], ix: 3 },
+                                      nm: "Ellipse Path 1",
+                                      mn: "ADBE Vector Shape - Ellipse",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "st",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          0.492810417624, 1, 0.683752441406, 1
+                                        ],
+                                        ix: 3
+                                      },
+                                      o: { a: 0, k: 100, ix: 4 },
+                                      w: { a: 0, k: 1.5, ix: 5 },
+                                      lc: 1,
+                                      lj: 1,
+                                      ml: 4,
+                                      bm: 0,
+                                      nm: "Stroke 1",
+                                      mn: "ADBE Vector Graphic - Stroke",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [168.625, -49.375], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Ellipse 1",
+                                  np: 3,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 0,
+                              op: 60,
+                              st: 0,
+                              bm: 0
+                            },
+                            {
+                              ddd: 0,
+                              ind: 9,
+                              ty: 4,
+                              nm: "dot 3",
+                              sr: 1,
+                              ks: {
+                                o: { a: 0, k: 100, ix: 11 },
+                                r: { a: 0, k: 0, ix: 10 },
+                                p: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: 0.667, y: 1 },
+                                      o: { x: 0.333, y: 0 },
+                                      t: 5,
+                                      s: [278.125, -6.375, 0],
+                                      to: [0, 0, 0],
+                                      ti: [82.5, -15.5, 0]
+                                    },
+                                    { t: 41.5, s: [163.75, 93, 0] }
+                                  ],
+                                  ix: 2
+                                },
+                                a: { a: 0, k: [168.625, -49.375, 0], ix: 1 },
+                                s: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: {
+                                        x: [0.833, 0.833, 0.833],
+                                        y: [0.833, 0.833, 0.833]
+                                      },
+                                      o: {
+                                        x: [0.167, 0.167, 0.167],
+                                        y: [0.167, 0.167, 0.167]
+                                      },
+                                      t: 8,
+                                      s: [0, 0, 100]
+                                    },
+                                    {
+                                      i: {
+                                        x: [0.833, 0.833, 0.833],
+                                        y: [0.833, 0.833, 0.833]
+                                      },
+                                      o: {
+                                        x: [0.167, 0.167, 0.167],
+                                        y: [0.167, 0.167, 0.167]
+                                      },
+                                      t: 14.5,
+                                      s: [100, 100, 100]
+                                    },
+                                    {
+                                      i: {
+                                        x: [0.833, 0.833, 0.833],
+                                        y: [0.833, 0.833, 0.833]
+                                      },
+                                      o: {
+                                        x: [0.167, 0.167, 0.167],
+                                        y: [0.167, 0.167, 0.167]
+                                      },
+                                      t: 27.5,
+                                      s: [100, 100, 100]
+                                    },
+                                    { t: 31, s: [0, 0, 100] }
+                                  ],
+                                  ix: 6
+                                }
+                              },
+                              ao: 0,
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      d: 1,
+                                      ty: "el",
+                                      s: { a: 0, k: [2.75, 2.75], ix: 2 },
+                                      p: { a: 0, k: [0, 0], ix: 3 },
+                                      nm: "Ellipse Path 1",
+                                      mn: "ADBE Vector Shape - Ellipse",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          0.208615546133, 0.408031089633,
+                                          0.979085047105, 1
+                                        ],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [168.625, -49.375], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Ellipse 1",
+                                  np: 3,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 0,
+                              op: 60,
+                              st: 0,
+                              bm: 0
+                            },
+                            {
+                              ddd: 0,
+                              ind: 10,
+                              ty: 4,
+                              nm: "dot 2",
+                              sr: 1,
+                              ks: {
+                                o: { a: 0, k: 100, ix: 11 },
+                                r: { a: 0, k: 0, ix: 10 },
+                                p: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: 0.667, y: 1 },
+                                      o: { x: 0.333, y: 0 },
+                                      t: 12.5,
+                                      s: [320.625, -2.875, 0],
+                                      to: [0, 0, 0],
+                                      ti: [50.25, -13.5, 0]
+                                    },
+                                    { t: 40, s: [231.75, 93.5, 0] }
+                                  ],
+                                  ix: 2
+                                },
+                                a: { a: 0, k: [168.625, -49.375, 0], ix: 1 },
+                                s: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: {
+                                        x: [0.833, 0.833, 0.833],
+                                        y: [0.833, 0.833, 0.833]
+                                      },
+                                      o: {
+                                        x: [0.167, 0.167, 0.167],
+                                        y: [0.167, 0.167, 0.167]
+                                      },
+                                      t: 12,
+                                      s: [0, 0, 100]
+                                    },
+                                    {
+                                      i: {
+                                        x: [0.833, 0.833, 0.833],
+                                        y: [0.833, 0.833, 0.833]
+                                      },
+                                      o: {
+                                        x: [0.167, 0.167, 0.167],
+                                        y: [0.167, 0.167, 0.167]
+                                      },
+                                      t: 18.5,
+                                      s: [100, 100, 100]
+                                    },
+                                    {
+                                      i: {
+                                        x: [0.833, 0.833, 0.833],
+                                        y: [0.833, 0.833, 0.833]
+                                      },
+                                      o: {
+                                        x: [0.167, 0.167, 0.167],
+                                        y: [0.167, 0.167, 0.167]
+                                      },
+                                      t: 29,
+                                      s: [100, 100, 100]
+                                    },
+                                    { t: 32.5, s: [0, 0, 100] }
+                                  ],
+                                  ix: 6
+                                }
+                              },
+                              ao: 0,
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      d: 1,
+                                      ty: "el",
+                                      s: { a: 0, k: [3.5, 3.5], ix: 2 },
+                                      p: { a: 0, k: [0, 0], ix: 3 },
+                                      nm: "Ellipse Path 1",
+                                      mn: "ADBE Vector Shape - Ellipse",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "st",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          0.492810417624, 0.862760356828, 1, 1
+                                        ],
+                                        ix: 3
+                                      },
+                                      o: { a: 0, k: 100, ix: 4 },
+                                      w: { a: 0, k: 1.5, ix: 5 },
+                                      lc: 1,
+                                      lj: 1,
+                                      ml: 4,
+                                      bm: 0,
+                                      nm: "Stroke 1",
+                                      mn: "ADBE Vector Graphic - Stroke",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [168.625, -49.375], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Ellipse 1",
+                                  np: 3,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 0,
+                              op: 60,
+                              st: 0,
+                              bm: 0
+                            },
+                            {
+                              ddd: 0,
+                              ind: 11,
+                              ty: 4,
+                              nm: "dot",
+                              sr: 1,
+                              ks: {
+                                o: { a: 0, k: 100, ix: 11 },
+                                r: { a: 0, k: 0, ix: 10 },
+                                p: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: 0.667, y: 1 },
+                                      o: { x: 0.333, y: 0 },
+                                      t: 8.5,
+                                      s: [356.125, -7.375, 0],
+                                      to: [0, 0, 0],
+                                      ti: [50.25, -13.5, 0]
+                                    },
+                                    { t: 45, s: [267.25, 89, 0] }
+                                  ],
+                                  ix: 2
+                                },
+                                a: { a: 0, k: [168.625, -49.375, 0], ix: 1 },
+                                s: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: {
+                                        x: [0.833, 0.833, 0.833],
+                                        y: [0.833, 0.833, 0.833]
+                                      },
+                                      o: {
+                                        x: [0.167, 0.167, 0.167],
+                                        y: [0.167, 0.167, 0.167]
+                                      },
+                                      t: 12,
+                                      s: [0, 0, 100]
+                                    },
+                                    {
+                                      i: {
+                                        x: [0.833, 0.833, 0.833],
+                                        y: [0.833, 0.833, 0.833]
+                                      },
+                                      o: {
+                                        x: [0.167, 0.167, 0.167],
+                                        y: [0.167, 0.167, 0.167]
+                                      },
+                                      t: 18.5,
+                                      s: [100, 100, 100]
+                                    },
+                                    {
+                                      i: {
+                                        x: [0.833, 0.833, 0.833],
+                                        y: [0.833, 0.833, 0.833]
+                                      },
+                                      o: {
+                                        x: [0.167, 0.167, 0.167],
+                                        y: [0.167, 0.167, 0.167]
+                                      },
+                                      t: 34,
+                                      s: [100, 100, 100]
+                                    },
+                                    { t: 37.5, s: [0, 0, 100] }
+                                  ],
+                                  ix: 6
+                                }
+                              },
+                              ao: 0,
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      d: 1,
+                                      ty: "el",
+                                      s: { a: 0, k: [2.75, 2.75], ix: 2 },
+                                      p: { a: 0, k: [0, 0], ix: 3 },
+                                      nm: "Ellipse Path 1",
+                                      mn: "ADBE Vector Shape - Ellipse",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          0.980392156863, 0.462745098039,
+                                          0.592156862745, 1
+                                        ],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [168.625, -49.375], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Ellipse 1",
+                                  np: 3,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 0,
+                              op: 60,
+                              st: 0,
+                              bm: 0
+                            },
+                            {
+                              ddd: 0,
+                              ind: 12,
+                              ty: 4,
+                              nm: "hong",
+                              sr: 1,
+                              ks: {
+                                o: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: [0.833], y: [0.833] },
+                                      o: { x: [0.167], y: [0.167] },
+                                      t: 37.5,
+                                      s: [100]
+                                    },
+                                    { t: 42.5, s: [0] }
+                                  ],
+                                  ix: 11
+                                },
+                                r: { a: 0, k: 0, ix: 10 },
+                                p: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: 0.833, y: 0.964 },
+                                      o: { x: 0.333, y: 0 },
+                                      t: 0,
+                                      s: [389, 75.656, 0],
+                                      to: [0, 0, 0],
+                                      ti: [73, -4.094, 0]
+                                    },
+                                    {
+                                      i: { x: 0.667, y: 1 },
+                                      o: { x: 0.167, y: 0.432 },
+                                      t: 8.5,
+                                      s: [111.25, 12.906, 0],
+                                      to: [-40.25, 37.094, 0],
+                                      ti: [44.75, 0.219, 0]
+                                    },
+                                    { t: 59.5, s: [-14.25, 69.031, 0] }
+                                  ],
+                                  ix: 2
+                                },
+                                a: { a: 0, k: [154.25, -31.594, 0], ix: 1 },
+                                s: { a: 0, k: [100, 100, 100], ix: 6 }
+                              },
+                              ao: 0,
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          o: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          v: [
+                                            [150.969, -34.875],
+                                            [150.375, -29.531],
+                                            [157.906, -28.313],
+                                            [158.125, -33.594]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          0.980392156863, 0.462745098039,
+                                          0.592156862745, 1
+                                        ],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [0, 0], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Shape 1",
+                                  np: 3,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 0,
+                              op: 60,
+                              st: 0,
+                              bm: 0
+                            },
+                            {
+                              ddd: 0,
+                              ind: 13,
+                              ty: 4,
+                              nm: "vang cam 2",
+                              sr: 1,
+                              ks: {
+                                o: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: [0.833], y: [0.833] },
+                                      o: { x: [0.167], y: [0.167] },
+                                      t: 22.5,
+                                      s: [100]
+                                    },
+                                    { t: 27.5, s: [0] }
+                                  ],
+                                  ix: 11
+                                },
+                                r: { a: 0, k: 0, ix: 10 },
+                                p: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: 0.833, y: 0.965 },
+                                      o: { x: 0.333, y: 0 },
+                                      t: 0,
+                                      s: [385.234, 74.75, 0],
+                                      to: [0, 0, 0],
+                                      ti: [52.359, -8.125, 0]
+                                    },
+                                    {
+                                      i: { x: 0.667, y: 1 },
+                                      o: { x: 0.167, y: 0.438 },
+                                      t: 8.5,
+                                      s: [146.734, 32.125, 0],
+                                      to: [-32.147, 42.741, 0],
+                                      ti: [0, 0, 0]
+                                    },
+                                    { t: 59.5, s: [49.734, 96.125, 0] }
+                                  ],
+                                  ix: 2
+                                },
+                                a: { a: 0, k: [124.234, 13.875, 0], ix: 1 },
+                                s: { a: 0, k: [100, 100, 100], ix: 6 }
+                              },
+                              ao: 0,
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          o: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          v: [
+                                            [123.375, 6.5],
+                                            [116.469, 17.5],
+                                            [125.25, 21.25],
+                                            [132, 10.375]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [1, 0.8431372549019608, 0, 1],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [0, 0], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Shape 1",
+                                  np: 3,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 0,
+                              op: 60,
+                              st: 0,
+                              bm: 0
+                            },
+                            {
+                              ddd: 0,
+                              ind: 14,
+                              ty: 4,
+                              nm: "xanh min 2",
+                              sr: 1,
+                              ks: {
+                                o: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: [0.833], y: [0.833] },
+                                      o: { x: [0.167], y: [0.167] },
+                                      t: 35,
+                                      s: [100]
+                                    },
+                                    { t: 40, s: [0] }
+                                  ],
+                                  ix: 11
+                                },
+                                r: { a: 0, k: 0, ix: 10 },
+                                p: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: 0.833, y: 0.963 },
+                                      o: { x: 0.333, y: 0 },
+                                      t: 0,
+                                      s: [387.422, 69.109, 0],
+                                      to: [-28.922, -20.109, 0],
+                                      ti: [63.797, -2.141, 0]
+                                    },
+                                    {
+                                      i: { x: 0.667, y: 1 },
+                                      o: { x: 0.167, y: 0.407 },
+                                      t: 8.5,
+                                      s: [145.047, 9.109, 0],
+                                      to: [-22.047, 43.141, 0],
+                                      ti: [0, 0, 0]
+                                    },
+                                    { t: 59.5, s: [38.922, 90.734, 0] }
+                                  ],
+                                  ix: 2
+                                },
+                                a: { a: 0, k: [75.922, 18.484, 0], ix: 1 },
+                                s: { a: 0, k: [100, 100, 100], ix: 6 }
+                              },
+                              ao: 0,
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [0.781, 3.063],
+                                            [1.313, -1.25],
+                                            [-2.563, -0.406],
+                                            [-1.156, 1.094]
+                                          ],
+                                          o: [
+                                            [-1.313, 1.344],
+                                            [0.469, 2.656],
+                                            [1.469, -1.188],
+                                            [-2.844, -0.875]
+                                          ],
+                                          v: [
+                                            [75.156, 13.406],
+                                            [70.594, 18],
+                                            [76.719, 23.563],
+                                            [81.25, 19.281]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          0.188235294118, 0.839215686275,
+                                          0.686274509804, 1
+                                        ],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [0, 0], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Shape 1",
+                                  np: 3,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 0,
+                              op: 60,
+                              st: 0,
+                              bm: 0
+                            },
+                            {
+                              ddd: 0,
+                              ind: 15,
+                              ty: 4,
+                              nm: "xanh duong",
+                              sr: 1,
+                              ks: {
+                                o: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: [0.833], y: [0.833] },
+                                      o: { x: [0.167], y: [0.167] },
+                                      t: 24,
+                                      s: [100]
+                                    },
+                                    { t: 29, s: [0] }
+                                  ],
+                                  ix: 11
+                                },
+                                r: { a: 0, k: 0, ix: 10 },
+                                p: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: 0.833, y: 0.959 },
+                                      o: { x: 0.333, y: 0 },
+                                      t: 0,
+                                      s: [386.016, 70.063, 0],
+                                      to: [-25.208, -13.896, 0],
+                                      ti: [82.766, -3.563, 0]
+                                    },
+                                    {
+                                      i: { x: 0.667, y: 1 },
+                                      o: { x: 0.167, y: 0.34 },
+                                      t: 8.5,
+                                      s: [194.516, 33.938, 0],
+                                      to: [-58.533, 38.863, 0],
+                                      ti: [41.167, -6.167, 0]
+                                    },
+                                    { t: 59.5, s: [67.266, 95.688, 0] }
+                                  ],
+                                  ix: 2
+                                },
+                                a: { a: 0, k: [20.266, 28.938, 0], ix: 1 },
+                                s: { a: 0, k: [100, 100, 100], ix: 6 }
+                              },
+                              ao: 0,
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          o: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          v: [
+                                            [21.969, 23.219],
+                                            [14.594, 29.781],
+                                            [18.563, 34.656],
+                                            [25.938, 28.25]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          0.247058823529, 0.403921568627,
+                                          0.949019607843, 1
+                                        ],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [0, 0], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Shape 1",
+                                  np: 3,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 0,
+                              op: 60,
+                              st: 0,
+                              bm: 0
+                            },
+                            {
+                              ddd: 0,
+                              ind: 16,
+                              ty: 4,
+                              nm: "do cam",
+                              sr: 1,
+                              ks: {
+                                o: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: [0.833], y: [0.833] },
+                                      o: { x: [0.167], y: [0.167] },
+                                      t: 20,
+                                      s: [100]
+                                    },
+                                    { t: 25, s: [0] }
+                                  ],
+                                  ix: 11
+                                },
+                                r: { a: 0, k: 0, ix: 10 },
+                                p: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: 0.833, y: 0.946 },
+                                      o: { x: 0.333, y: 0 },
+                                      t: 0,
+                                      s: [385.922, 75.281, 0],
+                                      to: [0, 0, 0],
+                                      ti: [40.422, 1.531, 0]
+                                    },
+                                    {
+                                      i: { x: 0.667, y: 1 },
+                                      o: { x: 0.167, y: 0.254 },
+                                      t: 8.5,
+                                      s: [271.922, 54.781, 0],
+                                      to: [-71.922, 32.469, 0],
+                                      ti: [0, 0, 0]
+                                    },
+                                    { t: 59.5, s: [128.922, 93.156, 0] }
+                                  ],
+                                  ix: 2
+                                },
+                                a: { a: 0, k: [-167.828, 29.156, 0], ix: 1 },
+                                s: { a: 0, k: [100, 100, 100], ix: 6 }
+                              },
+                              ao: 0,
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [0, 3.344],
+                                            [1.875, -1.844],
+                                            [-3.781, -0.125],
+                                            [-1.875, 2]
+                                          ],
+                                          o: [
+                                            [-1.625, 1.625],
+                                            [0.094, 2.531],
+                                            [1.688, -1.656],
+                                            [-3.906, 0.844]
+                                          ],
+                                          v: [
+                                            [-167.875, 23.719],
+                                            [-173.906, 29.563],
+                                            [-167.875, 34.594],
+                                            [-161.75, 28.25]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          1, 0.505882352941, 0.392156862745, 1
+                                        ],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [0, 0], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Shape 1",
+                                  np: 3,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 0,
+                              op: 60,
+                              st: 0,
+                              bm: 0
+                            },
+                            {
+                              ddd: 0,
+                              ind: 17,
+                              ty: 4,
+                              nm: "vang cam",
+                              sr: 1,
+                              ks: {
+                                o: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: [0.833], y: [0.833] },
+                                      o: { x: [0.167], y: [0.167] },
+                                      t: 25,
+                                      s: [100]
+                                    },
+                                    { t: 30, s: [0] }
+                                  ],
+                                  ix: 11
+                                },
+                                r: { a: 0, k: 0, ix: 10 },
+                                p: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: 0.833, y: 0.941 },
+                                      o: { x: 0.333, y: 0 },
+                                      t: 0,
+                                      s: [384.859, 77.176, 0],
+                                      to: [0, 0, 0],
+                                      ti: [52.859, -3.699, 0]
+                                    },
+                                    {
+                                      i: { x: 0.667, y: 1 },
+                                      o: { x: 0.167, y: 0.241 },
+                                      t: 8.5,
+                                      s: [255.859, 43.301, 0],
+                                      to: [-79.359, 38.449, 0],
+                                      ti: [0, 0, 0]
+                                    },
+                                    { t: 59.5, s: [66.859, 95.676, 0] }
+                                  ],
+                                  ix: 2
+                                },
+                                a: { a: 0, k: [-120.641, -26.949, 0], ix: 1 },
+                                s: { a: 0, k: [100, 100, 100], ix: 6 }
+                              },
+                              ao: 0,
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [2.063, 1.5],
+                                            [0.688, -1.344],
+                                            [-2.688, 0.719],
+                                            [-0.031, 1.688]
+                                          ],
+                                          o: [
+                                            [-0.719, 1.406],
+                                            [2, 2.219],
+                                            [0.031, -1.5],
+                                            [-2.375, 0.313]
+                                          ],
+                                          v: [
+                                            [-123.156, -30.281],
+                                            [-125.344, -26.156],
+                                            [-116.063, -23.875],
+                                            [-115.938, -28.563]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [1, 0.8431372549019608, 0, 1],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [0, 0], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Shape 1",
+                                  np: 3,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 0,
+                              op: 60,
+                              st: 0,
+                              bm: 0
+                            },
+                            {
+                              ddd: 0,
+                              ind: 18,
+                              ty: 4,
+                              nm: "xanh min",
+                              sr: 1,
+                              ks: {
+                                o: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: [0.833], y: [0.833] },
+                                      o: { x: [0.167], y: [0.167] },
+                                      t: 34,
+                                      s: [100]
+                                    },
+                                    { t: 39, s: [0] }
+                                  ],
+                                  ix: 11
+                                },
+                                r: { a: 0, k: 0, ix: 10 },
+                                p: {
+                                  a: 1,
+                                  k: [
+                                    {
+                                      i: { x: 0.833, y: 0.927 },
+                                      o: { x: 0.333, y: 0 },
+                                      t: 0,
+                                      s: [387.203, 76.391, 0],
+                                      to: [0, 0, 0],
+                                      ti: [32.578, 13.266, 0]
+                                    },
+                                    {
+                                      i: { x: 0.667, y: 1 },
+                                      o: { x: 0.167, y: 0.212 },
+                                      t: 8.5,
+                                      s: [288.953, 23.141, 0],
+                                      to: [-120.328, 57.484, 0],
+                                      ti: [0, 0, 0]
+                                    },
+                                    { t: 59.5, s: [68.203, 87.641, 0] }
+                                  ],
+                                  ix: 2
+                                },
+                                a: { a: 0, k: [-179.781, -30.328, 0], ix: 1 },
+                                s: { a: 0, k: [100, 100, 100], ix: 6 }
+                              },
+                              ao: 0,
+                              shapes: [
+                                {
+                                  ty: "gr",
+                                  it: [
+                                    {
+                                      ind: 0,
+                                      ty: "sh",
+                                      ix: 1,
+                                      ks: {
+                                        a: 0,
+                                        k: {
+                                          i: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          o: [
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0],
+                                            [0, 0]
+                                          ],
+                                          v: [
+                                            [-180.016, -34.984],
+                                            [-183.828, -31.438],
+                                            [-179.547, -25.672],
+                                            [-175.734, -29.141]
+                                          ],
+                                          c: true
+                                        },
+                                        ix: 2
+                                      },
+                                      nm: "Path 1",
+                                      mn: "ADBE Vector Shape - Group",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "fl",
+                                      c: {
+                                        a: 0,
+                                        k: [
+                                          0.1882353127, 0.839215755463,
+                                          0.686274528503, 1
+                                        ],
+                                        ix: 4
+                                      },
+                                      o: { a: 0, k: 100, ix: 5 },
+                                      r: 1,
+                                      bm: 0,
+                                      nm: "Fill 1",
+                                      mn: "ADBE Vector Graphic - Fill",
+                                      hd: false
+                                    },
+                                    {
+                                      ty: "tr",
+                                      p: { a: 0, k: [0, 0], ix: 2 },
+                                      a: { a: 0, k: [0, 0], ix: 1 },
+                                      s: { a: 0, k: [100, 100], ix: 3 },
+                                      r: { a: 0, k: 0, ix: 6 },
+                                      o: { a: 0, k: 100, ix: 7 },
+                                      sk: { a: 0, k: 0, ix: 4 },
+                                      sa: { a: 0, k: 0, ix: 5 },
+                                      nm: "Transform"
+                                    }
+                                  ],
+                                  nm: "Shape 1",
+                                  np: 2,
+                                  cix: 2,
+                                  bm: 0,
+                                  ix: 1,
+                                  mn: "ADBE Vector Group",
+                                  hd: false
+                                }
+                              ],
+                              ip: 0,
+                              op: 60,
+                              st: 0,
+                              bm: 0
+                            }
+                          ]
+                        }
+                      ],
+                      layers: [
+                        {
+                          ddd: 0,
+                          ind: 1,
+                          ty: 0,
+                          nm: "tickmedal",
+                          refId: "comp_0",
+                          sr: 1,
+                          ks: {
+                            o: { a: 0, k: 100, ix: 11 },
+                            r: { a: 0, k: 0, ix: 10 },
+                            p: { a: 0, k: [150, 100, 0], ix: 2 },
+                            a: { a: 0, k: [150, 120, 0], ix: 1 },
+                            s: { a: 0, k: [91, 91, 100], ix: 6 }
+                          },
+                          ao: 0,
+                          w: 300,
+                          h: 240,
+                          ip: 0,
+                          op: 1840,
+                          st: 0,
+                          bm: 0
+                        },
+                        {
+                          ddd: 0,
+                          ind: 2,
+                          ty: 0,
+                          nm: "Comp 3",
+                          refId: "comp_1",
+                          sr: 1.49,
+                          ks: {
+                            o: {
+                              a: 1,
+                              k: [
+                                {
+                                  i: { x: [0.833], y: [0.833] },
+                                  o: { x: [0.167], y: [0.167] },
+                                  t: 9,
+                                  s: [0]
+                                },
+                                { t: 20.0003564357758, s: [100] }
+                              ],
+                              ix: 11
+                            },
+                            r: { a: 0, k: 0, ix: 10 },
+                            p: {
+                              a: 1,
+                              k: [
+                                {
+                                  i: { x: 0.667, y: 1 },
+                                  o: { x: 0.333, y: 0 },
+                                  t: 4,
+                                  s: [150, 46, 0],
+                                  to: [0, 14.5, 0],
+                                  ti: [0, -16.167, 0]
+                                },
+                                {
+                                  i: { x: 0.667, y: 1 },
+                                  o: { x: 0.333, y: 0 },
+                                  t: 38,
+                                  s: [150, 133, 0],
+                                  to: [0, 16.167, 0],
+                                  ti: [0, -1.667, 0]
+                                },
+                                { t: 81.0004448890686, s: [150, 143, 0] }
+                              ],
+                              ix: 2
+                            },
+                            a: { a: 0, k: [187.5, 42, 0], ix: 1 },
+                            s: { a: 0, k: [81, 81, 100], ix: 6 }
+                          },
+                          ao: 0,
+                          w: 375,
+                          h: 84,
+                          ip: 1.001001001001,
+                          op: 90.401001001001,
+                          st: 1.001001001001,
+                          bm: 0
+                        },
+                        {
+                          ddd: 0,
+                          ind: 4,
+                          ty: 4,
+                          nm: "BG design Outlines",
+                          sr: 1,
+                          ks: {
+                            o: {
+                              a: 1,
+                              k: [
+                                {
+                                  i: { x: [0.667], y: [1] },
+                                  o: { x: [0.333], y: [0] },
+                                  t: 33,
+                                  s: [0]
+                                },
+                                { t: 44, s: [100] }
+                              ],
+                              ix: 11
+                            },
+                            r: {
+                              a: 1,
+                              k: [
+                                {
+                                  i: { x: [0.667], y: [1] },
+                                  o: { x: [0.333], y: [0] },
+                                  t: 33,
+                                  s: [-30]
+                                },
+                                { t: 67, s: [0] }
+                              ],
+                              ix: 10
+                            },
+                            p: { a: 0, k: [150, 89, 0], ix: 2 },
+                            a: { a: 0, k: [150, 150, 0], ix: 1 },
+                            s: {
+                              a: 1,
+                              k: [
+                                {
+                                  i: { x: [0.667, 0.667, 0.667], y: [1, 1, 1] },
+                                  o: { x: [0.333, 0.333, 0.333], y: [0, 0, 0] },
+                                  t: 33,
+                                  s: [43, 43, 100]
+                                },
+                                { t: 68, s: [92, 92, 100] }
+                              ],
+                              ix: 6
+                            }
+                          },
+                          ao: 0,
+                          shapes: [
+                            {
+                              ty: "gr",
+                              it: [
+                                {
+                                  ind: 0,
+                                  ty: "sh",
+                                  ix: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      i: [
+                                        [-0.715, -4.038],
+                                        [-1.797, 1.285],
+                                        [3.693, -0.161]
+                                      ],
+                                      o: [
+                                        [1.047, 5.917],
+                                        [2.737, -1.959],
+                                        [-2.041, 0.089]
+                                      ],
+                                      v: [
+                                        [-5.816, -0.054],
+                                        [3.794, 7.734],
+                                        [-2.427, -8.858]
+                                      ],
+                                      c: true
+                                    },
+                                    ix: 2
+                                  },
+                                  nm: "Path 1",
+                                  mn: "ADBE Vector Shape - Group",
+                                  hd: false
+                                },
+                                {
+                                  ty: "fl",
+                                  c: {
+                                    a: 0,
+                                    k: [
+                                      0.987999949736, 0.952999997606,
+                                      0.855000035903, 1
+                                    ],
+                                    ix: 4
+                                  },
+                                  o: { a: 0, k: 100, ix: 5 },
+                                  r: 1,
+                                  bm: 0,
+                                  nm: "Fill 1",
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  hd: false
+                                },
+                                {
+                                  ty: "tr",
+                                  p: { a: 0, k: [68.604, 164.415], ix: 2 },
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  o: { a: 0, k: 100, ix: 7 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  nm: "Transform"
+                                }
+                              ],
+                              nm: "Group 1",
+                              np: 2,
+                              cix: 2,
+                              bm: 0,
+                              ix: 1,
+                              mn: "ADBE Vector Group",
+                              hd: false
+                            },
+                            {
+                              ty: "gr",
+                              it: [
+                                {
+                                  ind: 0,
+                                  ty: "sh",
+                                  ix: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      i: [
+                                        [0, -1.657],
+                                        [1.657, 0],
+                                        [0, 1.657],
+                                        [-1.657, 0]
+                                      ],
+                                      o: [
+                                        [0, 1.657],
+                                        [-1.657, 0],
+                                        [0, -1.657],
+                                        [1.657, 0]
+                                      ],
+                                      v: [
+                                        [3, 0],
+                                        [0, 3],
+                                        [-3, 0],
+                                        [0, -3]
+                                      ],
+                                      c: true
+                                    },
+                                    ix: 2
+                                  },
+                                  nm: "Path 1",
+                                  mn: "ADBE Vector Shape - Group",
+                                  hd: false
+                                },
+                                {
+                                  ty: "fl",
+                                  c: {
+                                    a: 0,
+                                    k: [
+                                      0.987999949736, 0.952999997606,
+                                      0.855000035903, 1
+                                    ],
+                                    ix: 4
+                                  },
+                                  o: { a: 0, k: 100, ix: 5 },
+                                  r: 1,
+                                  bm: 0,
+                                  nm: "Fill 1",
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  hd: false
+                                },
+                                {
+                                  ty: "tr",
+                                  p: { a: 0, k: [197, 85], ix: 2 },
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  o: { a: 0, k: 100, ix: 7 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  nm: "Transform"
+                                }
+                              ],
+                              nm: "Group 2",
+                              np: 2,
+                              cix: 2,
+                              bm: 0,
+                              ix: 2,
+                              mn: "ADBE Vector Group",
+                              hd: false
+                            },
+                            {
+                              ty: "gr",
+                              it: [
+                                {
+                                  ind: 0,
+                                  ty: "sh",
+                                  ix: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      i: [
+                                        [0, -2.209],
+                                        [2.209, 0],
+                                        [0, 2.209],
+                                        [-2.209, 0]
+                                      ],
+                                      o: [
+                                        [0, 2.209],
+                                        [-2.209, 0],
+                                        [0, -2.209],
+                                        [2.209, 0]
+                                      ],
+                                      v: [
+                                        [4, 0],
+                                        [0, 4],
+                                        [-4, 0],
+                                        [0, -4]
+                                      ],
+                                      c: true
+                                    },
+                                    ix: 2
+                                  },
+                                  nm: "Path 1",
+                                  mn: "ADBE Vector Shape - Group",
+                                  hd: false
+                                },
+                                {
+                                  ty: "fl",
+                                  c: {
+                                    a: 0,
+                                    k: [
+                                      0.987999949736, 0.952999997606,
+                                      0.855000035903, 1
+                                    ],
+                                    ix: 4
+                                  },
+                                  o: { a: 0, k: 100, ix: 5 },
+                                  r: 1,
+                                  bm: 0,
+                                  nm: "Fill 1",
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  hd: false
+                                },
+                                {
+                                  ty: "tr",
+                                  p: { a: 0, k: [64, 136], ix: 2 },
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  o: { a: 0, k: 100, ix: 7 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  nm: "Transform"
+                                }
+                              ],
+                              nm: "Group 3",
+                              np: 2,
+                              cix: 2,
+                              bm: 0,
+                              ix: 3,
+                              mn: "ADBE Vector Group",
+                              hd: false
+                            },
+                            {
+                              ty: "gr",
+                              it: [
+                                {
+                                  ind: 0,
+                                  ty: "sh",
+                                  ix: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      i: [
+                                        [0, -0.829],
+                                        [0.829, 0],
+                                        [0, 0.829],
+                                        [-0.829, 0]
+                                      ],
+                                      o: [
+                                        [0, 0.829],
+                                        [-0.829, 0],
+                                        [0, -0.829],
+                                        [0.829, 0]
+                                      ],
+                                      v: [
+                                        [1.5, 0],
+                                        [0, 1.5],
+                                        [-1.5, 0],
+                                        [0, -1.5]
+                                      ],
+                                      c: true
+                                    },
+                                    ix: 2
+                                  },
+                                  nm: "Path 1",
+                                  mn: "ADBE Vector Shape - Group",
+                                  hd: false
+                                },
+                                {
+                                  ty: "fl",
+                                  c: {
+                                    a: 0,
+                                    k: [
+                                      0.980000035903, 0.663000009574,
+                                      0.638999968884, 1
+                                    ],
+                                    ix: 4
+                                  },
+                                  o: { a: 0, k: 100, ix: 5 },
+                                  r: 1,
+                                  bm: 0,
+                                  nm: "Fill 1",
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  hd: false
+                                },
+                                {
+                                  ty: "tr",
+                                  p: { a: 0, k: [64.5, 118.5], ix: 2 },
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  o: { a: 0, k: 100, ix: 7 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  nm: "Transform"
+                                }
+                              ],
+                              nm: "Group 4",
+                              np: 2,
+                              cix: 2,
+                              bm: 0,
+                              ix: 4,
+                              mn: "ADBE Vector Group",
+                              hd: false
+                            },
+                            {
+                              ty: "gr",
+                              it: [
+                                {
+                                  ind: 0,
+                                  ty: "sh",
+                                  ix: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      i: [
+                                        [0, -0.552],
+                                        [0.553, 0],
+                                        [0, 0.552],
+                                        [-0.553, 0]
+                                      ],
+                                      o: [
+                                        [0, 0.552],
+                                        [-0.553, 0],
+                                        [0, -0.552],
+                                        [0.553, 0]
+                                      ],
+                                      v: [
+                                        [1, 0],
+                                        [0, 1],
+                                        [-1, 0],
+                                        [0, -1]
+                                      ],
+                                      c: true
+                                    },
+                                    ix: 2
+                                  },
+                                  nm: "Path 1",
+                                  mn: "ADBE Vector Shape - Group",
+                                  hd: false
+                                },
+                                {
+                                  ty: "fl",
+                                  c: {
+                                    a: 0,
+                                    k: [
+                                      0.976000019148, 0.513999968884,
+                                      0.501999978458, 1
+                                    ],
+                                    ix: 4
+                                  },
+                                  o: { a: 0, k: 100, ix: 5 },
+                                  r: 1,
+                                  bm: 0,
+                                  nm: "Fill 1",
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  hd: false
+                                },
+                                {
+                                  ty: "tr",
+                                  p: { a: 0, k: [242, 95], ix: 2 },
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  o: { a: 0, k: 100, ix: 7 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  nm: "Transform"
+                                }
+                              ],
+                              nm: "Group 5",
+                              np: 2,
+                              cix: 2,
+                              bm: 0,
+                              ix: 5,
+                              mn: "ADBE Vector Group",
+                              hd: false
+                            },
+                            {
+                              ty: "gr",
+                              it: [
+                                {
+                                  ind: 0,
+                                  ty: "sh",
+                                  ix: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      i: [
+                                        [0, -0.829],
+                                        [0.828, 0],
+                                        [0, 0.829],
+                                        [-0.828, 0]
+                                      ],
+                                      o: [
+                                        [0, 0.829],
+                                        [-0.828, 0],
+                                        [0, -0.829],
+                                        [0.828, 0]
+                                      ],
+                                      v: [
+                                        [1.5, 0],
+                                        [0, 1.5],
+                                        [-1.5, 0],
+                                        [0, -1.5]
+                                      ],
+                                      c: true
+                                    },
+                                    ix: 2
+                                  },
+                                  nm: "Path 1",
+                                  mn: "ADBE Vector Shape - Group",
+                                  hd: false
+                                },
+                                {
+                                  ty: "fl",
+                                  c: {
+                                    a: 0,
+                                    k: [
+                                      0.980000035903, 0.663000009574,
+                                      0.638999968884, 1
+                                    ],
+                                    ix: 4
+                                  },
+                                  o: { a: 0, k: 100, ix: 5 },
+                                  r: 1,
+                                  bm: 0,
+                                  nm: "Fill 1",
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  hd: false
+                                },
+                                {
+                                  ty: "tr",
+                                  p: { a: 0, k: [188.5, 73.5], ix: 2 },
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  o: { a: 0, k: 100, ix: 7 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  nm: "Transform"
+                                }
+                              ],
+                              nm: "Group 6",
+                              np: 2,
+                              cix: 2,
+                              bm: 0,
+                              ix: 6,
+                              mn: "ADBE Vector Group",
+                              hd: false
+                            },
+                            {
+                              ty: "gr",
+                              it: [
+                                {
+                                  ind: 0,
+                                  ty: "sh",
+                                  ix: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      i: [
+                                        [0, -1.104],
+                                        [1.104, 0],
+                                        [0, 1.104],
+                                        [-1.104, 0]
+                                      ],
+                                      o: [
+                                        [0, 1.104],
+                                        [-1.104, 0],
+                                        [0, -1.104],
+                                        [1.104, 0]
+                                      ],
+                                      v: [
+                                        [2, 0],
+                                        [0, 2],
+                                        [-2, 0],
+                                        [0, -2]
+                                      ],
+                                      c: true
+                                    },
+                                    ix: 2
+                                  },
+                                  nm: "Path 1",
+                                  mn: "ADBE Vector Shape - Group",
+                                  hd: false
+                                },
+                                {
+                                  ty: "fl",
+                                  c: {
+                                    a: 0,
+                                    k: [
+                                      0.980000035903, 0.663000009574,
+                                      0.638999968884, 1
+                                    ],
+                                    ix: 4
+                                  },
+                                  o: { a: 0, k: 100, ix: 5 },
+                                  r: 1,
+                                  bm: 0,
+                                  nm: "Fill 1",
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  hd: false
+                                },
+                                {
+                                  ty: "tr",
+                                  p: { a: 0, k: [236, 187], ix: 2 },
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  o: { a: 0, k: 100, ix: 7 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  nm: "Transform"
+                                }
+                              ],
+                              nm: "Group 7",
+                              np: 2,
+                              cix: 2,
+                              bm: 0,
+                              ix: 7,
+                              mn: "ADBE Vector Group",
+                              hd: false
+                            },
+                            {
+                              ty: "gr",
+                              it: [
+                                {
+                                  ind: 0,
+                                  ty: "sh",
+                                  ix: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      i: [
+                                        [0, -1.381],
+                                        [1.381, 0],
+                                        [0, 1.381],
+                                        [-1.381, 0]
+                                      ],
+                                      o: [
+                                        [0, 1.381],
+                                        [-1.381, 0],
+                                        [0, -1.381],
+                                        [1.381, 0]
+                                      ],
+                                      v: [
+                                        [2.5, 0],
+                                        [0, 2.5],
+                                        [-2.5, 0],
+                                        [0, -2.5]
+                                      ],
+                                      c: true
+                                    },
+                                    ix: 2
+                                  },
+                                  nm: "Path 1",
+                                  mn: "ADBE Vector Shape - Group",
+                                  hd: false
+                                },
+                                {
+                                  ty: "fl",
+                                  c: {
+                                    a: 0,
+                                    k: [
+                                      0.995999983245, 0.964999988032,
+                                      0.889999988032, 1
+                                    ],
+                                    ix: 4
+                                  },
+                                  o: { a: 0, k: 100, ix: 5 },
+                                  r: 1,
+                                  bm: 0,
+                                  nm: "Fill 1",
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  hd: false
+                                },
+                                {
+                                  ty: "tr",
+                                  p: { a: 0, k: [50.5, 155.5], ix: 2 },
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  o: { a: 0, k: 100, ix: 7 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  nm: "Transform"
+                                }
+                              ],
+                              nm: "Group 8",
+                              np: 2,
+                              cix: 2,
+                              bm: 0,
+                              ix: 8,
+                              mn: "ADBE Vector Group",
+                              hd: false
+                            },
+                            {
+                              ty: "gr",
+                              it: [
+                                {
+                                  ind: 0,
+                                  ty: "sh",
+                                  ix: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      i: [
+                                        [0, -1.104],
+                                        [1.104, 0],
+                                        [0, 1.104],
+                                        [-1.104, 0]
+                                      ],
+                                      o: [
+                                        [0, 1.104],
+                                        [-1.104, 0],
+                                        [0, -1.104],
+                                        [1.104, 0]
+                                      ],
+                                      v: [
+                                        [2, 0],
+                                        [0, 2],
+                                        [-2, 0],
+                                        [0, -2]
+                                      ],
+                                      c: true
+                                    },
+                                    ix: 2
+                                  },
+                                  nm: "Path 1",
+                                  mn: "ADBE Vector Shape - Group",
+                                  hd: false
+                                },
+                                {
+                                  ty: "fl",
+                                  c: {
+                                    a: 0,
+                                    k: [
+                                      0.984000052658, 0.894000004787,
+                                      0.651000019148, 1
+                                    ],
+                                    ix: 4
+                                  },
+                                  o: { a: 0, k: 100, ix: 5 },
+                                  r: 1,
+                                  bm: 0,
+                                  nm: "Fill 1",
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  hd: false
+                                },
+                                {
+                                  ty: "tr",
+                                  p: { a: 0, k: [82, 198], ix: 2 },
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  o: { a: 0, k: 100, ix: 7 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  nm: "Transform"
+                                }
+                              ],
+                              nm: "Group 9",
+                              np: 2,
+                              cix: 2,
+                              bm: 0,
+                              ix: 9,
+                              mn: "ADBE Vector Group",
+                              hd: false
+                            },
+                            {
+                              ty: "gr",
+                              it: [
+                                {
+                                  ind: 0,
+                                  ty: "sh",
+                                  ix: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      i: [
+                                        [0, -1.381],
+                                        [1.381, 0],
+                                        [0, 1.381],
+                                        [-1.381, 0]
+                                      ],
+                                      o: [
+                                        [0, 1.381],
+                                        [-1.381, 0],
+                                        [0, -1.381],
+                                        [1.381, 0]
+                                      ],
+                                      v: [
+                                        [2.5, 0],
+                                        [0, 2.5],
+                                        [-2.5, 0],
+                                        [0, -2.5]
+                                      ],
+                                      c: true
+                                    },
+                                    ix: 2
+                                  },
+                                  nm: "Path 1",
+                                  mn: "ADBE Vector Shape - Group",
+                                  hd: false
+                                },
+                                {
+                                  ty: "fl",
+                                  c: {
+                                    a: 0,
+                                    k: [
+                                      0.984000052658, 0.894000004787,
+                                      0.651000019148, 1
+                                    ],
+                                    ix: 4
+                                  },
+                                  o: { a: 0, k: 100, ix: 5 },
+                                  r: 1,
+                                  bm: 0,
+                                  nm: "Fill 1",
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  hd: false
+                                },
+                                {
+                                  ty: "tr",
+                                  p: { a: 0, k: [73.5, 84.5], ix: 2 },
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  o: { a: 0, k: 100, ix: 7 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  nm: "Transform"
+                                }
+                              ],
+                              nm: "Group 10",
+                              np: 2,
+                              cix: 2,
+                              bm: 0,
+                              ix: 10,
+                              mn: "ADBE Vector Group",
+                              hd: false
+                            },
+                            {
+                              ty: "gr",
+                              it: [
+                                {
+                                  ind: 0,
+                                  ty: "sh",
+                                  ix: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      i: [
+                                        [1.655, -2.812],
+                                        [-4.811, 1.6],
+                                        [3.386, 5.098]
+                                      ],
+                                      o: [
+                                        [-2.413, 4.099],
+                                        [2.989, -0.995],
+                                        [-4.046, -6.091]
+                                      ],
+                                      v: [
+                                        [-7.988, -6.924],
+                                        [5.348, 8.915],
+                                        [7.016, -4.424]
+                                      ],
+                                      c: true
+                                    },
+                                    ix: 2
+                                  },
+                                  nm: "Path 1",
+                                  mn: "ADBE Vector Shape - Group",
+                                  hd: false
+                                },
+                                {
+                                  ty: "fl",
+                                  c: {
+                                    a: 0,
+                                    k: [
+                                      0.987999949736, 0.952999997606,
+                                      0.855000035903, 1
+                                    ],
+                                    ix: 4
+                                  },
+                                  o: { a: 0, k: 100, ix: 5 },
+                                  r: 1,
+                                  bm: 0,
+                                  nm: "Fill 1",
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  hd: false
+                                },
+                                {
+                                  ty: "tr",
+                                  p: { a: 0, k: [209.92, 99.953], ix: 2 },
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  o: { a: 0, k: 100, ix: 7 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  nm: "Transform"
+                                }
+                              ],
+                              nm: "Group 11",
+                              np: 2,
+                              cix: 2,
+                              bm: 0,
+                              ix: 11,
+                              mn: "ADBE Vector Group",
+                              hd: false
+                            },
+                            {
+                              ty: "gr",
+                              it: [
+                                {
+                                  ind: 0,
+                                  ty: "sh",
+                                  ix: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      i: [
+                                        [33.219, 20.846],
+                                        [1.14, 5.561],
+                                        [-26.516, 16.534],
+                                        [-16.323, -8.175],
+                                        [-21.87, -19.115],
+                                        [-2.536, -5.018],
+                                        [33.186, -16.342]
+                                      ],
+                                      o: [
+                                        [-24.882, -15.614],
+                                        [-4.822, -23.525],
+                                        [19.199, -11.972],
+                                        [6.493, 3.252],
+                                        [22.175, 19.382],
+                                        [10.607, 20.992],
+                                        [-1.975, 0.973]
+                                      ],
+                                      v: [
+                                        [-42.893, 56.063],
+                                        [-74.893, 9.063],
+                                        [-47.893, -64.937],
+                                        [12.107, -67.937],
+                                        [42.107, -42.937],
+                                        [69.107, -19.937],
+                                        [28.107, 59.063]
+                                      ],
+                                      c: true
+                                    },
+                                    ix: 2
+                                  },
+                                  nm: "Path 1",
+                                  mn: "ADBE Vector Shape - Group",
+                                  hd: false
+                                },
+                                {
+                                  ty: "fl",
+                                  c: {
+                                    a: 0,
+                                    k: [
+                                      0.987999949736, 0.933000033509,
+                                      0.788000009574, 1
+                                    ],
+                                    ix: 4
+                                  },
+                                  o: { a: 0, k: 100, ix: 5 },
+                                  r: 1,
+                                  bm: 0,
+                                  nm: "Fill 1",
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  hd: false
+                                },
+                                {
+                                  ty: "tr",
+                                  p: { a: 0, k: [158.893, 148.937], ix: 2 },
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  o: { a: 0, k: 100, ix: 7 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  nm: "Transform"
+                                }
+                              ],
+                              nm: "Group 12",
+                              np: 2,
+                              cix: 2,
+                              bm: 0,
+                              ix: 12,
+                              mn: "ADBE Vector Group",
+                              hd: false
+                            },
+                            {
+                              ty: "gr",
+                              it: [
+                                {
+                                  ind: 0,
+                                  ty: "sh",
+                                  ix: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      i: [
+                                        [17.108, -28.349],
+                                        [-1.255, -16.276],
+                                        [-30.359, -12.515],
+                                        [-40.252, 14.387],
+                                        [-9.863, 8.197],
+                                        [5.554, 14.06],
+                                        [20.502, 15.043],
+                                        [19.619, 11.335]
+                                      ],
+                                      o: [
+                                        [-9.113, 15.1],
+                                        [0.915, 11.862],
+                                        [12.774, 5.266],
+                                        [21.994, -7.862],
+                                        [12.211, -10.149],
+                                        [-5.063, -12.818],
+                                        [-25.038, -18.37],
+                                        [-24.109, -13.928]
+                                      ],
+                                      v: [
+                                        [-80.214, -44.293],
+                                        [-86.889, 2.424],
+                                        [-51.611, 78.698],
+                                        [21.801, 62.49],
+                                        [62.799, 46.282],
+                                        [83.774, 2.424],
+                                        [41.824, -20.458],
+                                        [4.639, -70.036]
+                                      ],
+                                      c: true
+                                    },
+                                    ix: 2
+                                  },
+                                  nm: "Path 1",
+                                  mn: "ADBE Vector Shape - Group",
+                                  hd: false
+                                },
+                                {
+                                  ty: "fl",
+                                  c: {
+                                    a: 0,
+                                    k: [
+                                      0.995999983245, 0.964999988032,
+                                      0.889999988032, 1
+                                    ],
+                                    ix: 4
+                                  },
+                                  o: { a: 0, k: 100, ix: 5 },
+                                  r: 1,
+                                  bm: 0,
+                                  nm: "Fill 1",
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  hd: false
+                                },
+                                {
+                                  ty: "tr",
+                                  p: { a: 0, k: [162.067, 136.566], ix: 2 },
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  o: { a: 0, k: 100, ix: 7 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  nm: "Transform"
+                                }
+                              ],
+                              nm: "Group 13",
+                              np: 2,
+                              cix: 2,
+                              bm: 0,
+                              ix: 13,
+                              mn: "ADBE Vector Group",
+                              hd: false
+                            }
+                          ],
+                          ip: 29,
+                          op: 1869,
+                          st: 29,
+                          bm: 0
+                        }
+                      ],
+                      markers: []
+                    }}
+                    className={classNames("__wab_instance", sty.lottie___5XFe)}
+                    preview={true}
+                  />
+                </div>
+                <div className={classNames(projectcss.all, sty.freeBox__bAhYo)}>
+                  <LottieWrapper
+                    animationData={{
+                      nm: "1",
+                      ddd: 0,
+                      h: 500,
+                      w: 500,
+                      meta: { g: "LottieFiles AE 0.1.20" },
+                      layers: [
+                        {
+                          ty: 4,
+                          nm: "Layer 2 Outlines",
+                          sr: 1,
+                          st: 0,
+                          op: 250,
+                          ip: 0,
+                          hd: false,
+                          ddd: 0,
+                          bm: 0,
+                          hasMask: false,
+                          ao: 0,
+                          ks: {
+                            a: { a: 0, k: [35.25, 35.25, 0], ix: 1 },
+                            s: { a: 0, k: [100, 100, 100], ix: 6 },
+                            sk: { a: 0, k: 0 },
+                            p: { a: 0, k: [339.635, 215.639, 0], ix: 2 },
+                            r: { a: 0, k: -0.001, ix: 10 },
+                            sa: { a: 0, k: 0 },
+                            o: { a: 0, k: 100, ix: 11 }
+                          },
+                          ef: [],
+                          shapes: [
+                            {
+                              ty: "gr",
+                              bm: 0,
+                              hd: false,
+                              mn: "ADBE Vector Group",
+                              nm: "Group 1",
+                              ix: 1,
+                              cix: 2,
+                              np: 2,
+                              it: [
+                                {
+                                  ty: "sh",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Shape - Group",
+                                  nm: "Path 1",
+                                  ix: 1,
+                                  d: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      c: true,
+                                      i: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      o: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      v: [
+                                        [7, 7],
+                                        [-7, 7],
+                                        [-7, -7],
+                                        [7, -7]
+                                      ]
+                                    },
+                                    ix: 2
+                                  }
+                                },
+                                {
+                                  ty: "fl",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  nm: "Fill 1",
+                                  c: { a: 0, k: [0.898, 0.898, 0.898], ix: 4 },
+                                  r: 1,
+                                  o: { a: 0, k: 100, ix: 5 }
+                                },
+                                {
+                                  ty: "tr",
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  p: { a: 0, k: [35.25, 35.25], ix: 2 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  o: { a: 0, k: 100, ix: 7 }
+                                }
+                              ]
+                            },
+                            {
+                              ty: "gr",
+                              bm: 0,
+                              hd: false,
+                              mn: "ADBE Vector Group",
+                              nm: "Group 2",
+                              ix: 2,
+                              cix: 2,
+                              np: 2,
+                              it: [
+                                {
+                                  ty: "sh",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Shape - Group",
+                                  nm: "Path 1",
+                                  ix: 1,
+                                  d: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      c: true,
+                                      i: [
+                                        [0, -11.598],
+                                        [11.598, 0],
+                                        [0, 11.598],
+                                        [-11.598, 0]
+                                      ],
+                                      o: [
+                                        [0, 11.598],
+                                        [-11.598, 0],
+                                        [0, -11.598],
+                                        [11.598, 0]
+                                      ],
+                                      v: [
+                                        [21, 0],
+                                        [0, 21],
+                                        [-21, 0],
+                                        [0, -21]
+                                      ]
+                                    },
+                                    ix: 2
+                                  }
+                                },
+                                {
+                                  ty: "fl",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  nm: "Fill 1",
+                                  c: {
+                                    a: 0,
+                                    k: [0.8118, 0.8118, 0.8118],
+                                    ix: 4
+                                  },
+                                  r: 1,
+                                  o: { a: 0, k: 100, ix: 5 }
+                                },
+                                {
+                                  ty: "tr",
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  p: { a: 0, k: [35.25, 35.25], ix: 2 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  o: { a: 0, k: 100, ix: 7 }
+                                }
+                              ]
+                            },
+                            {
+                              ty: "gr",
+                              bm: 0,
+                              hd: false,
+                              mn: "ADBE Vector Group",
+                              nm: "Group 3",
+                              ix: 3,
+                              cix: 2,
+                              np: 2,
+                              it: [
+                                {
+                                  ty: "sh",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Shape - Group",
+                                  nm: "Path 1",
+                                  ix: 1,
+                                  d: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      c: true,
+                                      i: [
+                                        [0, -19.33],
+                                        [19.33, 0],
+                                        [0, 19.33],
+                                        [-19.33, 0]
+                                      ],
+                                      o: [
+                                        [0, 19.33],
+                                        [-19.33, 0],
+                                        [0, -19.33],
+                                        [19.33, 0]
+                                      ],
+                                      v: [
+                                        [35, 0],
+                                        [0, 35],
+                                        [-35, 0],
+                                        [0, -35]
+                                      ]
+                                    },
+                                    ix: 2
+                                  }
+                                },
+                                {
+                                  ty: "fl",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  nm: "Fill 1",
+                                  c: {
+                                    a: 0,
+                                    k: [0.0667, 0.1725, 0.251],
+                                    ix: 4
+                                  },
+                                  r: 1,
+                                  o: { a: 0, k: 100, ix: 5 }
+                                },
+                                {
+                                  ty: "tr",
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  p: { a: 0, k: [35.25, 35.25], ix: 2 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  o: { a: 0, k: 100, ix: 7 }
+                                }
+                              ]
+                            }
+                          ],
+                          ind: 1,
+                          parent: 6
+                        },
+                        {
+                          ty: 4,
+                          nm: "Layer 3 Outlines",
+                          sr: 1,
+                          st: 0,
+                          op: 250,
+                          ip: 0,
+                          hd: false,
+                          ddd: 0,
+                          bm: 0,
+                          hasMask: false,
+                          ao: 0,
+                          ks: {
+                            a: { a: 0, k: [66.75, 80.75, 0], ix: 1 },
+                            s: { a: 0, k: [100, 100, 100], ix: 6 },
+                            sk: { a: 0, k: 0 },
+                            p: { a: 0, k: [339.748, 134.745, 0], ix: 2 },
+                            r: { a: 0, k: -0.001, ix: 10 },
+                            sa: { a: 0, k: 0 },
+                            o: { a: 0, k: 100, ix: 11 }
+                          },
+                          ef: [],
+                          shapes: [
+                            {
+                              ty: "gr",
+                              bm: 0,
+                              hd: false,
+                              mn: "ADBE Vector Group",
+                              nm: "Group 1",
+                              ix: 1,
+                              cix: 2,
+                              np: 2,
+                              it: [
+                                {
+                                  ty: "sh",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Shape - Group",
+                                  nm: "Path 1",
+                                  ix: 1,
+                                  d: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      c: true,
+                                      i: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      o: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      v: [
+                                        [7, 80.5],
+                                        [-7, 80.5],
+                                        [-7, -80.5],
+                                        [7, -80.5]
+                                      ]
+                                    },
+                                    ix: 2
+                                  }
+                                },
+                                {
+                                  ty: "fl",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  nm: "Fill 1",
+                                  c: {
+                                    a: 0,
+                                    k: [0.7373, 0.0588, 0.0824],
+                                    ix: 4
+                                  },
+                                  r: 1,
+                                  o: { a: 0, k: 100, ix: 5 }
+                                },
+                                {
+                                  ty: "tr",
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  p: { a: 0, k: [7.25, 80.75], ix: 2 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  o: { a: 0, k: 100, ix: 7 }
+                                }
+                              ]
+                            },
+                            {
+                              ty: "gr",
+                              bm: 0,
+                              hd: false,
+                              mn: "ADBE Vector Group",
+                              nm: "Group 2",
+                              ix: 2,
+                              cix: 2,
+                              np: 2,
+                              it: [
+                                {
+                                  ty: "sh",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Shape - Group",
+                                  nm: "Path 1",
+                                  ix: 1,
+                                  d: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      c: true,
+                                      i: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      o: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      v: [
+                                        [-41.3, 21.738],
+                                        [-41.3, 22.298],
+                                        [41.3, 22.298],
+                                        [23.461, -22.298]
+                                      ]
+                                    },
+                                    ix: 2
+                                  }
+                                },
+                                {
+                                  ty: "fl",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  nm: "Fill 1",
+                                  c: {
+                                    a: 0,
+                                    k: [0.2431, 0.549, 0.7804],
+                                    ix: 4
+                                  },
+                                  r: 1,
+                                  o: { a: 0, k: 100, ix: 5 }
+                                },
+                                {
+                                  ty: "tr",
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  p: { a: 0, k: [83.55, 61.951], ix: 2 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  o: { a: 0, k: 100, ix: 7 }
+                                }
+                              ]
+                            },
+                            {
+                              ty: "gr",
+                              bm: 0,
+                              hd: false,
+                              mn: "ADBE Vector Group",
+                              nm: "Group 3",
+                              ix: 3,
+                              cix: 2,
+                              np: 2,
+                              it: [
+                                {
+                                  ty: "sh",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Shape - Group",
+                                  nm: "Path 1",
+                                  ix: 1,
+                                  d: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      c: true,
+                                      i: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      o: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      v: [
+                                        [-41.3, 28],
+                                        [41.3, 28],
+                                        [18.9, -28],
+                                        [-41.3, -28]
+                                      ]
+                                    },
+                                    ix: 2
+                                  }
+                                },
+                                {
+                                  ty: "fl",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  nm: "Fill 1",
+                                  c: {
+                                    a: 0,
+                                    k: [0.2627, 0.5961, 0.8196],
+                                    ix: 4
+                                  },
+                                  r: 1,
+                                  o: { a: 0, k: 100, ix: 5 }
+                                },
+                                {
+                                  ty: "tr",
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  p: { a: 0, k: [83.55, 56.25], ix: 2 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  o: { a: 0, k: 100, ix: 7 }
+                                }
+                              ]
+                            },
+                            {
+                              ty: "gr",
+                              bm: 0,
+                              hd: false,
+                              mn: "ADBE Vector Group",
+                              nm: "Group 4",
+                              ix: 4,
+                              cix: 2,
+                              np: 2,
+                              it: [
+                                {
+                                  ty: "sh",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Shape - Group",
+                                  nm: "Path 1",
+                                  ix: 1,
+                                  d: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      c: true,
+                                      i: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      o: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      v: [
+                                        [10.5, 7],
+                                        [-10.5, 7],
+                                        [-10.5, -7],
+                                        [10.5, -7]
+                                      ]
+                                    },
+                                    ix: 2
+                                  }
+                                },
+                                {
+                                  ty: "fl",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  nm: "Fill 1",
+                                  c: { a: 0, k: [0.898, 0.898, 0.898], ix: 4 },
+                                  r: 1,
+                                  o: { a: 0, k: 100, ix: 5 }
+                                },
+                                {
+                                  ty: "tr",
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  p: { a: 0, k: [122.75, 133.25], ix: 2 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  o: { a: 0, k: 100, ix: 7 }
+                                }
+                              ]
+                            },
+                            {
+                              ty: "gr",
+                              bm: 0,
+                              hd: false,
+                              mn: "ADBE Vector Group",
+                              nm: "Group 5",
+                              ix: 5,
+                              cix: 2,
+                              np: 2,
+                              it: [
+                                {
+                                  ty: "sh",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Shape - Group",
+                                  nm: "Path 1",
+                                  ix: 1,
+                                  d: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      c: false,
+                                      i: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      o: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      v: [
+                                        [-38.5, 80.5],
+                                        [-66.5, 80.5],
+                                        [-66.5, -80.5],
+                                        [24.5, -80.5],
+                                        [66.5, 24.5],
+                                        [66.5, 80.5],
+                                        [31.5, 80.5]
+                                      ]
+                                    },
+                                    ix: 2
+                                  }
+                                },
+                                {
+                                  ty: "fl",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  nm: "Fill 1",
+                                  c: {
+                                    a: 0,
+                                    k: [0.8863, 0.1098, 0.1294],
+                                    ix: 4
+                                  },
+                                  r: 1,
+                                  o: { a: 0, k: 100, ix: 5 }
+                                },
+                                {
+                                  ty: "tr",
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  p: { a: 0, k: [66.75, 80.75], ix: 2 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  o: { a: 0, k: 100, ix: 7 }
+                                }
+                              ]
+                            }
+                          ],
+                          ind: 2,
+                          parent: 6
+                        },
+                        {
+                          ty: 4,
+                          nm: "Layer 4 Outlines",
+                          sr: 1,
+                          st: 0,
+                          op: 250,
+                          ip: 0,
+                          hd: false,
+                          ddd: 0,
+                          bm: 0,
+                          hasMask: false,
+                          ao: 0,
+                          ks: {
+                            a: { a: 0, k: [35.25, 35.25, 0], ix: 1 },
+                            s: {
+                              a: 1,
+                              k: [
+                                {
+                                  o: { x: 0.333, y: 0 },
+                                  i: { x: 0.667, y: 1 },
+                                  s: [0, 0, 100],
+                                  t: -40
+                                },
+                                { s: [100, 100, 100], t: 10 }
+                              ],
+                              ix: 6
+                            },
+                            sk: { a: 0, k: 0 },
+                            p: {
+                              a: 1,
+                              k: [
+                                {
+                                  o: { x: 1, y: 0 },
+                                  i: { x: 0, y: 1 },
+                                  s: [-323.172, 358.727, 0],
+                                  t: 0,
+                                  ti: [-78.695, 0, 0],
+                                  to: [78.695, 0, 0]
+                                },
+                                { s: [149, 358.727, 0], t: 20 }
+                              ],
+                              ix: 2
+                            },
+                            r: {
+                              a: 1,
+                              k: [
+                                {
+                                  o: { x: 0.167, y: 0.167 },
+                                  i: { x: 0.833, y: 0.689 },
+                                  s: [-23],
+                                  t: 0
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.114 },
+                                  i: { x: 0.833, y: 0.79 },
+                                  s: [-22.867],
+                                  t: 1
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.138 },
+                                  i: { x: 0.833, y: 0.809 },
+                                  s: [-22.502],
+                                  t: 2
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.148 },
+                                  i: { x: 0.833, y: 0.817 },
+                                  s: [-21.948],
+                                  t: 3
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.153 },
+                                  i: { x: 0.833, y: 0.822 },
+                                  s: [-21.234],
+                                  t: 4
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.157 },
+                                  i: { x: 0.833, y: 0.825 },
+                                  s: [-20.385],
+                                  t: 5
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.159 },
+                                  i: { x: 0.833, y: 0.826 },
+                                  s: [-19.418],
+                                  t: 6
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.16 },
+                                  i: { x: 0.833, y: 0.828 },
+                                  s: [-18.35],
+                                  t: 7
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.161 },
+                                  i: { x: 0.833, y: 0.829 },
+                                  s: [-17.193],
+                                  t: 8
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.162 },
+                                  i: { x: 0.833, y: 0.829 },
+                                  s: [-15.957],
+                                  t: 9
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.163 },
+                                  i: { x: 0.833, y: 0.83 },
+                                  s: [-14.652],
+                                  t: 10
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.164 },
+                                  i: { x: 0.833, y: 0.831 },
+                                  s: [-13.287],
+                                  t: 11
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.164 },
+                                  i: { x: 0.833, y: 0.831 },
+                                  s: [-11.87],
+                                  t: 12
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.165 },
+                                  i: { x: 0.833, y: 0.832 },
+                                  s: [-10.407],
+                                  t: 13
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.165 },
+                                  i: { x: 0.833, y: 0.832 },
+                                  s: [-8.909],
+                                  t: 14
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.166 },
+                                  i: { x: 0.833, y: 0.833 },
+                                  s: [-7.382],
+                                  t: 15
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.167 },
+                                  i: { x: 0.833, y: 0.834 },
+                                  s: [-5.839],
+                                  t: 16
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.168 },
+                                  i: { x: 0.833, y: 0.837 },
+                                  s: [-4.294],
+                                  t: 17
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.17 },
+                                  i: { x: 0.833, y: 0.842 },
+                                  s: [-2.769],
+                                  t: 18
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.177 },
+                                  i: { x: 0.833, y: 0.854 },
+                                  s: [-1.305],
+                                  t: 19
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.194 },
+                                  i: { x: 0.833, y: 0.876 },
+                                  s: [0],
+                                  t: 20
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.252 },
+                                  i: { x: 0.833, y: 0.915 },
+                                  s: [0.979],
+                                  t: 21
+                                },
+                                {
+                                  o: { x: 0.167, y: 3.873 },
+                                  i: { x: 0.833, y: 3.544 },
+                                  s: [1.462],
+                                  t: 22
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.081 },
+                                  i: { x: 0.833, y: 0.79 },
+                                  s: [1.473],
+                                  t: 23
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.138 },
+                                  i: { x: 0.833, y: 0.832 },
+                                  s: [1.138],
+                                  t: 24
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.165 },
+                                  i: { x: 0.833, y: 0.852 },
+                                  s: [0.63],
+                                  t: 25
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.19 },
+                                  i: { x: 0.833, y: 0.87 },
+                                  s: [0.114],
+                                  t: 26
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.232 },
+                                  i: { x: 0.833, y: 0.9 },
+                                  s: [-0.286],
+                                  t: 27
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.507 },
+                                  i: { x: 0.833, y: 1.1 },
+                                  s: [-0.511],
+                                  t: 28
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.045 },
+                                  i: { x: 0.833, y: 0.765 },
+                                  s: [-0.555],
+                                  t: 29
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.129 },
+                                  i: { x: 0.833, y: 0.825 },
+                                  s: [-0.458],
+                                  t: 30
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.159 },
+                                  i: { x: 0.833, y: 0.847 },
+                                  s: [-0.281],
+                                  t: 31
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.184 },
+                                  i: { x: 0.833, y: 0.865 },
+                                  s: [-0.087],
+                                  t: 32
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.218 },
+                                  i: { x: 0.833, y: 0.89 },
+                                  s: [0.074],
+                                  t: 33
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.343 },
+                                  i: { x: 0.833, y: 0.981 },
+                                  s: [0.174],
+                                  t: 34
+                                },
+                                {
+                                  o: { x: 0.167, y: -0.025 },
+                                  i: { x: 0.833, y: 0.714 },
+                                  s: [0.206],
+                                  t: 35
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.118 },
+                                  i: { x: 0.833, y: 0.817 },
+                                  s: [0.181],
+                                  t: 36
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.153 },
+                                  i: { x: 0.833, y: 0.843 },
+                                  s: [0.121],
+                                  t: 37
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.177 },
+                                  i: { x: 0.833, y: 0.861 },
+                                  s: [0.049],
+                                  t: 38
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.207 },
+                                  i: { x: 0.833, y: 0.882 },
+                                  s: [-0.014],
+                                  t: 39
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.284 },
+                                  i: { x: 0.833, y: 0.938 },
+                                  s: [-0.057],
+                                  t: 40
+                                },
+                                {
+                                  o: { x: 0.167, y: -0.246 },
+                                  i: { x: 0.833, y: 0.553 },
+                                  s: [-0.075],
+                                  t: 41
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.102 },
+                                  i: { x: 0.833, y: 0.806 },
+                                  s: [-0.07],
+                                  t: 42
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.146 },
+                                  i: { x: 0.833, y: 0.838 },
+                                  s: [-0.051],
+                                  t: 43
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.171 },
+                                  i: { x: 0.833, y: 0.856 },
+                                  s: [-0.025],
+                                  t: 44
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.198 },
+                                  i: { x: 0.833, y: 0.876 },
+                                  s: [0],
+                                  t: 45
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.252 },
+                                  i: { x: 0.833, y: 0.915 },
+                                  s: [0.018],
+                                  t: 46
+                                },
+                                {
+                                  o: { x: 0.167, y: 3.873 },
+                                  i: { x: 0.833, y: 3.544 },
+                                  s: [0.027],
+                                  t: 47
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.081 },
+                                  i: { x: 0.833, y: 0.79 },
+                                  s: [0.027],
+                                  t: 48
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.138 },
+                                  i: { x: 0.833, y: 0.832 },
+                                  s: [0.021],
+                                  t: 49
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.165 },
+                                  i: { x: 0.833, y: 0.852 },
+                                  s: [0.012],
+                                  t: 50
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.19 },
+                                  i: { x: 0.833, y: 0.87 },
+                                  s: [0.002],
+                                  t: 51
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.232 },
+                                  i: { x: 0.833, y: 0.9 },
+                                  s: [-0.005],
+                                  t: 52
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.507 },
+                                  i: { x: 0.833, y: 1.1 },
+                                  s: [-0.009],
+                                  t: 53
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.045 },
+                                  i: { x: 0.833, y: 0.765 },
+                                  s: [-0.01],
+                                  t: 54
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.129 },
+                                  i: { x: 0.833, y: 0.825 },
+                                  s: [-0.008],
+                                  t: 55
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.159 },
+                                  i: { x: 0.833, y: 0.847 },
+                                  s: [-0.005],
+                                  t: 56
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.184 },
+                                  i: { x: 0.833, y: 0.865 },
+                                  s: [-0.002],
+                                  t: 57
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.218 },
+                                  i: { x: 0.833, y: 0.89 },
+                                  s: [0.001],
+                                  t: 58
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.343 },
+                                  i: { x: 0.833, y: 0.981 },
+                                  s: [0.003],
+                                  t: 59
+                                },
+                                {
+                                  o: { x: 0.167, y: -0.025 },
+                                  i: { x: 0.833, y: 0.714 },
+                                  s: [0.004],
+                                  t: 60
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.118 },
+                                  i: { x: 0.833, y: 0.817 },
+                                  s: [0.003],
+                                  t: 61
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.153 },
+                                  i: { x: 0.833, y: 0.843 },
+                                  s: [0.002],
+                                  t: 62
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.177 },
+                                  i: { x: 0.833, y: 0.861 },
+                                  s: [0.001],
+                                  t: 63
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.207 },
+                                  i: { x: 0.833, y: 0.882 },
+                                  s: [0],
+                                  t: 64
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.284 },
+                                  i: { x: 0.833, y: 0.938 },
+                                  s: [-0.001],
+                                  t: 65
+                                },
+                                {
+                                  o: { x: 0.167, y: -0.246 },
+                                  i: { x: 0.833, y: 0.553 },
+                                  s: [-0.001],
+                                  t: 66
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.102 },
+                                  i: { x: 0.833, y: 0.806 },
+                                  s: [-0.001],
+                                  t: 67
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.146 },
+                                  i: { x: 0.833, y: 0.838 },
+                                  s: [-0.001],
+                                  t: 68
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.171 },
+                                  i: { x: 0.833, y: 0.856 },
+                                  s: [0],
+                                  t: 69
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.198 },
+                                  i: { x: 0.833, y: 0.876 },
+                                  s: [0],
+                                  t: 70
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.252 },
+                                  i: { x: 0.833, y: 0.915 },
+                                  s: [0],
+                                  t: 71
+                                },
+                                {
+                                  o: { x: 0.167, y: 3.873 },
+                                  i: { x: 0.833, y: 3.544 },
+                                  s: [0],
+                                  t: 72
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.081 },
+                                  i: { x: 0.833, y: 0.79 },
+                                  s: [0],
+                                  t: 73
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.138 },
+                                  i: { x: 0.833, y: 0.832 },
+                                  s: [0],
+                                  t: 74
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.165 },
+                                  i: { x: 0.833, y: 0.852 },
+                                  s: [0],
+                                  t: 75
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.19 },
+                                  i: { x: 0.833, y: 0.87 },
+                                  s: [0],
+                                  t: 76
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.232 },
+                                  i: { x: 0.833, y: 0.9 },
+                                  s: [0],
+                                  t: 77
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.507 },
+                                  i: { x: 0.833, y: 1.1 },
+                                  s: [0],
+                                  t: 78
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.045 },
+                                  i: { x: 0.833, y: 0.765 },
+                                  s: [0],
+                                  t: 79
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.129 },
+                                  i: { x: 0.833, y: 0.825 },
+                                  s: [0],
+                                  t: 80
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.159 },
+                                  i: { x: 0.833, y: 0.847 },
+                                  s: [0],
+                                  t: 81
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.184 },
+                                  i: { x: 0.833, y: 0.865 },
+                                  s: [0],
+                                  t: 82
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.218 },
+                                  i: { x: 0.833, y: 0.89 },
+                                  s: [0],
+                                  t: 83
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.343 },
+                                  i: { x: 0.833, y: 0.981 },
+                                  s: [0],
+                                  t: 84
+                                },
+                                {
+                                  o: { x: 0.167, y: -0.025 },
+                                  i: { x: 0.833, y: 0.714 },
+                                  s: [0],
+                                  t: 85
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.118 },
+                                  i: { x: 0.833, y: 0.817 },
+                                  s: [0],
+                                  t: 86
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.153 },
+                                  i: { x: 0.833, y: 0.843 },
+                                  s: [0],
+                                  t: 87
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.177 },
+                                  i: { x: 0.833, y: 0.861 },
+                                  s: [0],
+                                  t: 88
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.207 },
+                                  i: { x: 0.833, y: 0.882 },
+                                  s: [0],
+                                  t: 89
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.284 },
+                                  i: { x: 0.833, y: 0.938 },
+                                  s: [0],
+                                  t: 90
+                                },
+                                {
+                                  o: { x: 0.167, y: -0.246 },
+                                  i: { x: 0.833, y: 0.553 },
+                                  s: [0],
+                                  t: 91
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.102 },
+                                  i: { x: 0.833, y: 0.806 },
+                                  s: [0],
+                                  t: 92
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.146 },
+                                  i: { x: 0.833, y: 0.838 },
+                                  s: [0],
+                                  t: 93
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.171 },
+                                  i: { x: 0.833, y: 0.856 },
+                                  s: [0],
+                                  t: 94
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.198 },
+                                  i: { x: 0.833, y: 0.876 },
+                                  s: [0],
+                                  t: 95
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.252 },
+                                  i: { x: 0.833, y: 0.915 },
+                                  s: [0],
+                                  t: 96
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 97
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.081 },
+                                  i: { x: 0.833, y: 0.79 },
+                                  s: [0],
+                                  t: 98
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.138 },
+                                  i: { x: 0.833, y: 0.832 },
+                                  s: [0],
+                                  t: 99
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.165 },
+                                  i: { x: 0.833, y: 0.852 },
+                                  s: [0],
+                                  t: 100
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.19 },
+                                  i: { x: 0.833, y: 0.87 },
+                                  s: [0],
+                                  t: 101
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.232 },
+                                  i: { x: 0.833, y: 0.9 },
+                                  s: [0],
+                                  t: 102
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.507 },
+                                  i: { x: 0.833, y: 1.1 },
+                                  s: [0],
+                                  t: 103
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.045 },
+                                  i: { x: 0.833, y: 0.765 },
+                                  s: [0],
+                                  t: 104
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.129 },
+                                  i: { x: 0.833, y: 0.825 },
+                                  s: [0],
+                                  t: 105
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.159 },
+                                  i: { x: 0.833, y: 0.847 },
+                                  s: [0],
+                                  t: 106
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.184 },
+                                  i: { x: 0.833, y: 0.865 },
+                                  s: [0],
+                                  t: 107
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.218 },
+                                  i: { x: 0.833, y: 0.89 },
+                                  s: [0],
+                                  t: 108
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.343 },
+                                  i: { x: 0.833, y: 0.981 },
+                                  s: [0],
+                                  t: 109
+                                },
+                                {
+                                  o: { x: 0.167, y: -0.025 },
+                                  i: { x: 0.833, y: 0.714 },
+                                  s: [0],
+                                  t: 110
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.118 },
+                                  i: { x: 0.833, y: 0.817 },
+                                  s: [0],
+                                  t: 111
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.153 },
+                                  i: { x: 0.833, y: 0.843 },
+                                  s: [0],
+                                  t: 112
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.177 },
+                                  i: { x: 0.833, y: 0.861 },
+                                  s: [0],
+                                  t: 113
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.207 },
+                                  i: { x: 0.833, y: 0.882 },
+                                  s: [0],
+                                  t: 114
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.284 },
+                                  i: { x: 0.833, y: 0.938 },
+                                  s: [0],
+                                  t: 115
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 116
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.102 },
+                                  i: { x: 0.833, y: 0.806 },
+                                  s: [0],
+                                  t: 117
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.146 },
+                                  i: { x: 0.833, y: 0.838 },
+                                  s: [0],
+                                  t: 118
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.171 },
+                                  i: { x: 0.833, y: 0.856 },
+                                  s: [0],
+                                  t: 119
+                                },
+                                {
+                                  o: { x: 0.167, y: 0.198 },
+                                  i: { x: 0.833, y: 0.876 },
+                                  s: [0],
+                                  t: 120
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 121
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 122
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 123
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 124
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 125
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 126
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 127
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 128
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 129
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 130
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 131
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 132
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 133
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 134
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 135
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 136
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 137
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 138
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 139
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 140
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 141
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 142
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 143
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 144
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 145
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 146
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 147
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 148
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 149
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 150
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 151
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 152
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 153
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 154
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 155
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 156
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 157
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 158
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 159
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 160
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 161
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 162
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 163
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 164
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 165
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 166
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 167
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 168
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 169
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 170
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 171
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 172
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 173
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 174
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 175
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 176
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 177
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 178
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 179
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 180
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 181
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 182
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 183
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 184
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 185
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 186
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 187
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 188
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 189
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 190
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 191
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 192
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 193
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 194
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 195
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 196
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 197
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 198
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 199
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 200
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 201
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 202
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 203
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 204
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 205
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 206
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 207
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 208
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 209
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 210
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 211
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 212
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 213
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 214
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 215
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 216
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 217
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 218
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 219
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 220
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 221
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 222
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 223
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 224
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 225
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 226
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 227
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 228
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 229
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 230
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 231
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 232
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 233
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 234
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 235
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 236
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 237
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 238
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 239
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 240
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 241
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 242
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 243
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 244
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 245
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 246
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 247
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.833, y: 1 },
+                                  s: [0],
+                                  t: 248
+                                },
+                                { s: [0], t: 249 }
+                              ],
+                              ix: 10
+                            },
+                            sa: { a: 0, k: 0 },
+                            o: { a: 0, k: 100, ix: 11 }
+                          },
+                          ef: [
+                            {
+                              ty: 0,
+                              mn: "ADBE Slider Control",
+                              nm: "Rotation - Overshoot",
+                              ix: 1,
+                              en: 1,
+                              ef: [
+                                {
+                                  ty: 0,
+                                  mn: "ADBE Slider Control-0001",
+                                  nm: "Slider",
+                                  ix: 1,
+                                  v: {
+                                    a: 1,
+                                    k: [
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 0
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 1
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 2
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 3
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 4
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 5
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 6
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 7
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 8
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 9
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 10
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 11
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 12
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 13
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 14
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 15
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 16
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 17
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 18
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 19
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 20
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 21
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 22
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 23
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 24
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 25
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 26
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 27
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 28
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 29
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 30
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 31
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 32
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 33
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 34
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 35
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 36
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 37
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 38
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 39
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 40
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 41
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 42
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 43
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 44
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 45
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 46
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 47
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 48
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 49
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 50
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 51
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 52
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 53
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 54
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 55
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 56
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 57
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 58
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 59
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 60
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 61
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 62
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 63
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 64
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 65
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 66
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 67
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 68
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 69
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 70
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 71
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 72
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 73
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 74
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 75
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 76
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 77
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 78
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 79
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 80
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 81
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 82
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 83
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 84
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 85
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 86
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 87
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 88
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 89
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 90
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 91
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 92
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 93
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 94
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 95
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 96
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 97
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 98
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 99
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 100
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 101
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 102
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 103
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 104
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 105
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 106
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 107
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 108
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 109
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 110
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 111
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 112
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 113
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 114
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 115
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 116
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 117
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 118
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 119
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 120
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 121
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 122
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 123
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 124
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 125
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 126
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 127
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 128
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 129
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 130
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 131
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 132
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 133
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 134
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 135
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 136
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 137
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 138
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 139
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 140
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 141
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 142
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 143
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 144
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 145
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 146
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 147
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 148
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 149
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 150
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 151
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 152
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 153
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 154
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 155
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 156
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 157
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 158
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 159
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 160
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 161
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 162
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 163
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 164
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 165
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 166
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 167
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 168
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 169
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 170
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 171
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 172
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 173
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 174
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 175
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 176
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 177
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 178
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 179
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 180
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 181
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 182
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 183
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 184
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 185
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 186
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 187
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 188
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 189
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 190
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 191
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 192
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 193
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 194
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 195
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 196
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 197
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 198
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 199
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 200
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 201
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 202
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 203
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 204
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 205
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 206
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 207
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 208
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 209
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 210
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 211
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 212
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 213
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 214
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 215
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 216
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 217
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 218
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 219
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 220
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 221
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 222
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 223
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 224
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 225
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 226
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 227
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 228
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 229
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 230
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 231
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 232
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 233
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 234
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 235
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 236
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 237
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 238
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 239
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 240
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 241
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 242
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 243
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 244
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 245
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 246
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 247
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [20],
+                                        t: 248
+                                      },
+                                      { s: [20], t: 249 }
+                                    ],
+                                    ix: 1
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              ty: 0,
+                              mn: "ADBE Slider Control",
+                              nm: "Rotation - Bounce",
+                              ix: 2,
+                              en: 1,
+                              ef: [
+                                {
+                                  ty: 0,
+                                  mn: "ADBE Slider Control-0001",
+                                  nm: "Slider",
+                                  ix: 1,
+                                  v: {
+                                    a: 1,
+                                    k: [
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 0
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 1
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 2
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 3
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 4
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 5
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 6
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 7
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 8
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 9
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 10
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 11
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 12
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 13
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 14
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 15
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 16
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 17
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 18
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 19
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 20
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 21
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 22
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 23
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 24
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 25
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 26
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 27
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 28
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 29
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 30
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 31
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 32
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 33
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 34
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 35
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 36
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 37
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 38
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 39
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 40
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 41
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 42
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 43
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 44
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 45
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 46
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 47
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 48
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 49
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 50
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 51
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 52
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 53
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 54
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 55
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 56
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 57
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 58
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 59
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 60
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 61
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 62
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 63
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 64
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 65
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 66
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 67
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 68
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 69
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 70
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 71
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 72
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 73
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 74
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 75
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 76
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 77
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 78
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 79
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 80
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 81
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 82
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 83
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 84
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 85
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 86
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 87
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 88
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 89
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 90
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 91
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 92
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 93
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 94
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 95
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 96
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 97
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 98
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 99
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 100
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 101
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 102
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 103
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 104
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 105
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 106
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 107
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 108
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 109
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 110
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 111
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 112
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 113
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 114
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 115
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 116
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 117
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 118
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 119
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 120
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 121
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 122
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 123
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 124
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 125
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 126
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 127
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 128
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 129
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 130
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 131
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 132
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 133
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 134
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 135
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 136
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 137
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 138
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 139
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 140
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 141
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 142
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 143
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 144
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 145
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 146
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 147
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 148
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 149
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 150
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 151
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 152
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 153
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 154
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 155
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 156
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 157
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 158
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 159
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 160
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 161
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 162
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 163
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 164
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 165
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 166
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 167
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 168
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 169
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 170
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 171
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 172
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 173
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 174
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 175
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 176
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 177
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 178
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 179
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 180
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 181
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 182
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 183
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 184
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 185
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 186
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 187
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 188
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 189
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 190
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 191
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 192
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 193
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 194
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 195
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 196
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 197
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 198
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 199
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 200
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 201
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 202
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 203
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 204
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 205
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 206
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 207
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 208
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 209
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 210
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 211
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 212
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 213
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 214
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 215
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 216
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 217
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 218
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 219
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 220
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 221
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 222
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 223
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 224
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 225
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 226
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 227
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 228
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 229
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 230
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 231
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 232
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 233
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 234
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 235
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 236
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 237
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 238
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 239
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 240
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 241
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 242
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 243
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 244
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 245
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 246
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 247
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [40],
+                                        t: 248
+                                      },
+                                      { s: [40], t: 249 }
+                                    ],
+                                    ix: 1
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              ty: 0,
+                              mn: "ADBE Slider Control",
+                              nm: "Rotation - Friction",
+                              ix: 3,
+                              en: 1,
+                              ef: [
+                                {
+                                  ty: 0,
+                                  mn: "ADBE Slider Control-0001",
+                                  nm: "Slider",
+                                  ix: 1,
+                                  v: {
+                                    a: 1,
+                                    k: [
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 0
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 1
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 2
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 3
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 4
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 5
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 6
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 7
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 8
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 9
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 10
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 11
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 12
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 13
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 14
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 15
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 16
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 17
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 18
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 19
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 20
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 21
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 22
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 23
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 24
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 25
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 26
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 27
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 28
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 29
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 30
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 31
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 32
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 33
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 34
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 35
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 36
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 37
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 38
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 39
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 40
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 41
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 42
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 43
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 44
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 45
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 46
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 47
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 48
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 49
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 50
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 51
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 52
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 53
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 54
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 55
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 56
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 57
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 58
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 59
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 60
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 61
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 62
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 63
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 64
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 65
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 66
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 67
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 68
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 69
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 70
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 71
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 72
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 73
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 74
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 75
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 76
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 77
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 78
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 79
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 80
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 81
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 82
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 83
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 84
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 85
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 86
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 87
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 88
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 89
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 90
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 91
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 92
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 93
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 94
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 95
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 96
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 97
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 98
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 99
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 100
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 101
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 102
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 103
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 104
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 105
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 106
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 107
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 108
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 109
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 110
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 111
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 112
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 113
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 114
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 115
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 116
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 117
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 118
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 119
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 120
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 121
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 122
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 123
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 124
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 125
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 126
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 127
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 128
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 129
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 130
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 131
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 132
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 133
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 134
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 135
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 136
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 137
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 138
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 139
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 140
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 141
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 142
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 143
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 144
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 145
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 146
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 147
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 148
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 149
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 150
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 151
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 152
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 153
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 154
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 155
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 156
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 157
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 158
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 159
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 160
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 161
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 162
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 163
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 164
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 165
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 166
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 167
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 168
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 169
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 170
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 171
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 172
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 173
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 174
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 175
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 176
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 177
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 178
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 179
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 180
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 181
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 182
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 183
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 184
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 185
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 186
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 187
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 188
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 189
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 190
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 191
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 192
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 193
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 194
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 195
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 196
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 197
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 198
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 199
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 200
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 201
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 202
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 203
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 204
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 205
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 206
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 207
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 208
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 209
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 210
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 211
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 212
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 213
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 214
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 215
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 216
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 217
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 218
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 219
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 220
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 221
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 222
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 223
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 224
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 225
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 226
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 227
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 228
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 229
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 230
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 231
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 232
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 233
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 234
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 235
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 236
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 237
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 238
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 239
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 240
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 241
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 242
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 243
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 244
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 245
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 246
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 247
+                                      },
+                                      {
+                                        o: { x: 0.167, y: 0 },
+                                        i: { x: 0.833, y: 1 },
+                                        s: [80],
+                                        t: 248
+                                      },
+                                      { s: [80], t: 249 }
+                                    ],
+                                    ix: 1
+                                  }
+                                }
+                              ]
+                            }
+                          ],
+                          shapes: [
+                            {
+                              ty: "gr",
+                              bm: 0,
+                              hd: false,
+                              mn: "ADBE Vector Group",
+                              nm: "Group 1",
+                              ix: 1,
+                              cix: 2,
+                              np: 2,
+                              it: [
+                                {
+                                  ty: "sh",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Shape - Group",
+                                  nm: "Path 1",
+                                  ix: 1,
+                                  d: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      c: true,
+                                      i: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      o: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      v: [
+                                        [7, 7],
+                                        [-7, 7],
+                                        [-7, -7],
+                                        [7, -7]
+                                      ]
+                                    },
+                                    ix: 2
+                                  }
+                                },
+                                {
+                                  ty: "fl",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  nm: "Fill 1",
+                                  c: { a: 0, k: [0.898, 0.898, 0.898], ix: 4 },
+                                  r: 1,
+                                  o: { a: 0, k: 100, ix: 5 }
+                                },
+                                {
+                                  ty: "tr",
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  p: { a: 0, k: [35.25, 35.25], ix: 2 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  o: { a: 0, k: 100, ix: 7 }
+                                }
+                              ]
+                            },
+                            {
+                              ty: "gr",
+                              bm: 0,
+                              hd: false,
+                              mn: "ADBE Vector Group",
+                              nm: "Group 2",
+                              ix: 2,
+                              cix: 2,
+                              np: 2,
+                              it: [
+                                {
+                                  ty: "sh",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Shape - Group",
+                                  nm: "Path 1",
+                                  ix: 1,
+                                  d: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      c: true,
+                                      i: [
+                                        [0, -11.598],
+                                        [11.598, 0],
+                                        [0, 11.598],
+                                        [-11.598, 0]
+                                      ],
+                                      o: [
+                                        [0, 11.598],
+                                        [-11.598, 0],
+                                        [0, -11.598],
+                                        [11.598, 0]
+                                      ],
+                                      v: [
+                                        [21, 0],
+                                        [0, 21],
+                                        [-21, 0],
+                                        [0, -21]
+                                      ]
+                                    },
+                                    ix: 2
+                                  }
+                                },
+                                {
+                                  ty: "fl",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  nm: "Fill 1",
+                                  c: {
+                                    a: 0,
+                                    k: [0.8118, 0.8118, 0.8118],
+                                    ix: 4
+                                  },
+                                  r: 1,
+                                  o: { a: 0, k: 100, ix: 5 }
+                                },
+                                {
+                                  ty: "tr",
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  p: { a: 0, k: [35.25, 35.25], ix: 2 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  o: { a: 0, k: 100, ix: 7 }
+                                }
+                              ]
+                            },
+                            {
+                              ty: "gr",
+                              bm: 0,
+                              hd: false,
+                              mn: "ADBE Vector Group",
+                              nm: "Group 3",
+                              ix: 3,
+                              cix: 2,
+                              np: 2,
+                              it: [
+                                {
+                                  ty: "sh",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Shape - Group",
+                                  nm: "Path 1",
+                                  ix: 1,
+                                  d: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      c: true,
+                                      i: [
+                                        [0, -19.33],
+                                        [19.33, 0],
+                                        [0, 19.33],
+                                        [-19.33, 0]
+                                      ],
+                                      o: [
+                                        [0, 19.33],
+                                        [-19.33, 0],
+                                        [0, -19.33],
+                                        [19.33, 0]
+                                      ],
+                                      v: [
+                                        [35, 0],
+                                        [0, 35],
+                                        [-35, 0],
+                                        [0, -35]
+                                      ]
+                                    },
+                                    ix: 2
+                                  }
+                                },
+                                {
+                                  ty: "fl",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  nm: "Fill 1",
+                                  c: {
+                                    a: 0,
+                                    k: [0.0667, 0.1725, 0.251],
+                                    ix: 4
+                                  },
+                                  r: 1,
+                                  o: { a: 0, k: 100, ix: 5 }
+                                },
+                                {
+                                  ty: "tr",
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  p: { a: 0, k: [35.25, 35.25], ix: 2 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  o: { a: 0, k: 100, ix: 7 }
+                                }
+                              ]
+                            }
+                          ],
+                          ind: 3
+                        },
+                        {
+                          ty: 4,
+                          nm: "Layer 6 Outlines",
+                          sr: 1,
+                          st: 6,
+                          op: 256,
+                          ip: 6,
+                          hd: false,
+                          ddd: 0,
+                          bm: 0,
+                          hasMask: false,
+                          ao: 0,
+                          ks: {
+                            a: { a: 0, k: [0.25, 7.25, 0], ix: 1 },
+                            s: {
+                              a: 1,
+                              k: [
+                                {
+                                  o: { x: 1, y: 0 },
+                                  i: { x: 0, y: 1 },
+                                  s: [0, 100, 100],
+                                  t: 6
+                                },
+                                { s: [100, 100, 100], t: 26 }
+                              ],
+                              ix: 6
+                            },
+                            sk: { a: 0, k: 0 },
+                            p: { a: 0, k: [31.634, 138.646, 0], ix: 2 },
+                            r: { a: 0, k: -0.001, ix: 10 },
+                            sa: { a: 0, k: 0 },
+                            o: { a: 0, k: 100, ix: 11 }
+                          },
+                          ef: [],
+                          shapes: [
+                            {
+                              ty: "gr",
+                              bm: 0,
+                              hd: false,
+                              mn: "ADBE Vector Group",
+                              nm: "Group 1",
+                              ix: 1,
+                              cix: 2,
+                              np: 2,
+                              it: [
+                                {
+                                  ty: "sh",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Shape - Group",
+                                  nm: "Path 1",
+                                  ix: 1,
+                                  d: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      c: true,
+                                      i: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      o: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      v: [
+                                        [108.5, 7],
+                                        [-108.5, 7],
+                                        [-108.5, -7],
+                                        [108.5, -7]
+                                      ]
+                                    },
+                                    ix: 2
+                                  }
+                                },
+                                {
+                                  ty: "fl",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  nm: "Fill 1",
+                                  c: { a: 0, k: [1, 1, 1], ix: 4 },
+                                  r: 1,
+                                  o: { a: 0, k: 100, ix: 5 }
+                                },
+                                {
+                                  ty: "tr",
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  p: { a: 0, k: [108.75, 7.25], ix: 2 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  o: { a: 0, k: 100, ix: 7 }
+                                }
+                              ]
+                            }
+                          ],
+                          ind: 4,
+                          parent: 6
+                        },
+                        {
+                          ty: 4,
+                          nm: "Layer 7 Outlines",
+                          sr: 1,
+                          st: 0,
+                          op: 250,
+                          ip: 0,
+                          hd: false,
+                          ddd: 0,
+                          bm: 0,
+                          hasMask: false,
+                          ao: 0,
+                          ks: {
+                            a: { a: 0, k: [108.75, 35.25, 0], ix: 1 },
+                            s: { a: 0, k: [100, 100, 100], ix: 6 },
+                            sk: { a: 0, k: 0 },
+                            p: { a: 0, k: [140.132, 82.643, 0], ix: 2 },
+                            r: { a: 0, k: -0.001, ix: 10 },
+                            sa: { a: 0, k: 0 },
+                            o: { a: 0, k: 100, ix: 11 }
+                          },
+                          ef: [],
+                          shapes: [
+                            {
+                              ty: "gr",
+                              bm: 0,
+                              hd: false,
+                              mn: "ADBE Vector Group",
+                              nm: "Group 1",
+                              ix: 1,
+                              cix: 2,
+                              np: 2,
+                              it: [
+                                {
+                                  ty: "sh",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Shape - Group",
+                                  nm: "Path 1",
+                                  ix: 1,
+                                  d: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      c: true,
+                                      i: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, -3.866],
+                                        [0, 0],
+                                        [-3.869, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      o: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [-3.869, 0],
+                                        [0, 0],
+                                        [0, 3.866],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      v: [
+                                        [21, -21],
+                                        [21, -35],
+                                        [-14, -35],
+                                        [-21, -28],
+                                        [-21, 28],
+                                        [-14, 35],
+                                        [21, 35],
+                                        [21, 21],
+                                        [-7, 21],
+                                        [-7, 7],
+                                        [21, 7],
+                                        [21, -7],
+                                        [-7, -7],
+                                        [-7, -21]
+                                      ]
+                                    },
+                                    ix: 2
+                                  }
+                                },
+                                {
+                                  ty: "fl",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  nm: "Fill 1",
+                                  c: { a: 0, k: [1, 1, 1], ix: 4 },
+                                  r: 1,
+                                  o: { a: 0, k: 100, ix: 5 }
+                                },
+                                {
+                                  ty: "tr",
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  p: { a: 0, k: [196.25, 35.25], ix: 2 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  o: { a: 0, k: 100, ix: 7 }
+                                }
+                              ]
+                            },
+                            {
+                              ty: "gr",
+                              bm: 0,
+                              hd: false,
+                              mn: "ADBE Vector Group",
+                              nm: "Group 2",
+                              ix: 2,
+                              cix: 2,
+                              np: 2,
+                              it: [
+                                {
+                                  ty: "sh",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Shape - Group",
+                                  nm: "Path 1",
+                                  ix: 1,
+                                  d: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      c: true,
+                                      i: [
+                                        [0, -3.866],
+                                        [0, 0],
+                                        [-3.869, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      o: [
+                                        [0, 0],
+                                        [0, 3.866],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [-3.869, 0]
+                                      ],
+                                      v: [
+                                        [-21, -28],
+                                        [-21, 28],
+                                        [-14, 35],
+                                        [21, 35],
+                                        [21, 21],
+                                        [-7, 21],
+                                        [-7, 7],
+                                        [21, 7],
+                                        [21, -7],
+                                        [-7, -7],
+                                        [-7, -21],
+                                        [21, -21],
+                                        [21, -35],
+                                        [-14, -35]
+                                      ]
+                                    },
+                                    ix: 2
+                                  }
+                                },
+                                {
+                                  ty: "fl",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  nm: "Fill 1",
+                                  c: { a: 0, k: [1, 1, 1], ix: 4 },
+                                  r: 1,
+                                  o: { a: 0, k: 100, ix: 5 }
+                                },
+                                {
+                                  ty: "tr",
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  p: { a: 0, k: [140.25, 35.25], ix: 2 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  o: { a: 0, k: 100, ix: 7 }
+                                }
+                              ]
+                            },
+                            {
+                              ty: "gr",
+                              bm: 0,
+                              hd: false,
+                              mn: "ADBE Vector Group",
+                              nm: "Group 3",
+                              ix: 3,
+                              cix: 2,
+                              np: 4,
+                              it: [
+                                {
+                                  ty: "sh",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Shape - Group",
+                                  nm: "Path 1",
+                                  ix: 1,
+                                  d: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      c: true,
+                                      i: [
+                                        [3.862, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, -3.859]
+                                      ],
+                                      o: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [3.862, 0],
+                                        [0, 3.859]
+                                      ],
+                                      v: [
+                                        [3.5, -7],
+                                        [-10.5, -7],
+                                        [-10.5, -21],
+                                        [3.5, -21],
+                                        [10.5, -14]
+                                      ]
+                                    },
+                                    ix: 2
+                                  }
+                                },
+                                {
+                                  ty: "sh",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Shape - Group",
+                                  nm: "Path 2",
+                                  ix: 2,
+                                  d: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      c: true,
+                                      i: [
+                                        [11.58, 0],
+                                        [0, 0],
+                                        [0, -3.866],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, -3.859],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [3.329, 3.719],
+                                        [0, 5.373]
+                                      ],
+                                      o: [
+                                        [0, 0],
+                                        [-3.869, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [3.862, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, -5.373],
+                                        [3.329, -3.719],
+                                        [0, -11.58]
+                                      ],
+                                      v: [
+                                        [3.5, -35],
+                                        [-17.5, -35],
+                                        [-24.5, -28],
+                                        [-24.5, 35],
+                                        [-10.5, 35],
+                                        [-10.5, 7],
+                                        [3.5, 7],
+                                        [10.5, 14],
+                                        [10.5, 35],
+                                        [24.5, 35],
+                                        [24.5, 14],
+                                        [19.141, 0],
+                                        [24.5, -14]
+                                      ]
+                                    },
+                                    ix: 2
+                                  }
+                                },
+                                {
+                                  ty: "mm",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Filter - Merge",
+                                  nm: "Merge Paths 1",
+                                  mm: 1
+                                },
+                                {
+                                  ty: "fl",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  nm: "Fill 1",
+                                  c: { a: 0, k: [1, 1, 1], ix: 4 },
+                                  r: 1,
+                                  o: { a: 0, k: 100, ix: 5 }
+                                },
+                                {
+                                  ty: "tr",
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  p: { a: 0, k: [80.75, 35.25], ix: 2 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  o: { a: 0, k: 100, ix: 7 }
+                                }
+                              ]
+                            },
+                            {
+                              ty: "gr",
+                              bm: 0,
+                              hd: false,
+                              mn: "ADBE Vector Group",
+                              nm: "Group 4",
+                              ix: 4,
+                              cix: 2,
+                              np: 2,
+                              it: [
+                                {
+                                  ty: "sh",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Shape - Group",
+                                  nm: "Path 1",
+                                  ix: 1,
+                                  d: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      c: true,
+                                      i: [
+                                        [0, -3.866],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      o: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [-3.869, 0]
+                                      ],
+                                      v: [
+                                        [-21, -28],
+                                        [-21, 35],
+                                        [-7, 35],
+                                        [-7, 7],
+                                        [21, 7],
+                                        [21, -7],
+                                        [-7, -7],
+                                        [-7, -21],
+                                        [21, -21],
+                                        [21, -35],
+                                        [-14, -35]
+                                      ]
+                                    },
+                                    ix: 2
+                                  }
+                                },
+                                {
+                                  ty: "fl",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  nm: "Fill 1",
+                                  c: { a: 0, k: [1, 1, 1], ix: 4 },
+                                  r: 1,
+                                  o: { a: 0, k: 100, ix: 5 }
+                                },
+                                {
+                                  ty: "tr",
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  p: { a: 0, k: [21.25, 35.25], ix: 2 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  o: { a: 0, k: 100, ix: 7 }
+                                }
+                              ]
+                            }
+                          ],
+                          ind: 5,
+                          parent: 6
+                        },
+                        {
+                          ty: 4,
+                          nm: "Layer 8 Outlines",
+                          sr: 1,
+                          st: 0,
+                          op: 250,
+                          ip: 0,
+                          hd: false,
+                          ddd: 0,
+                          bm: 0,
+                          hasMask: false,
+                          ao: 0,
+                          ks: {
+                            a: { a: 0, k: [136.75, 108.75, 0], ix: 1 },
+                            s: { a: 0, k: [100, 100, 100], ix: 6 },
+                            sk: { a: 0, k: 0 },
+                            p: {
+                              a: 1,
+                              k: [
+                                {
+                                  o: { x: 0.333, y: 0 },
+                                  i: { x: 0.667, y: 1 },
+                                  s: [70.368, -71.643, 0],
+                                  t: 14,
+                                  ti: [0, 0, 0],
+                                  to: [0, 1.667, 0]
+                                },
+                                {
+                                  o: { x: 0.333, y: 0 },
+                                  i: { x: 0.667, y: 1 },
+                                  s: [70.368, -61.643, 0],
+                                  t: 19,
+                                  ti: [0, 0, 0],
+                                  to: [0, 0, 0]
+                                },
+                                {
+                                  o: { x: 0.333, y: 0 },
+                                  i: { x: 0.667, y: 1 },
+                                  s: [70.367, -71.643, 0],
+                                  t: 24,
+                                  ti: [0, 0, 0],
+                                  to: [0, 0, 0]
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.667, y: 1 },
+                                  s: [70.367, -61.643, 0],
+                                  t: 29,
+                                  ti: [0, 0, 0],
+                                  to: [0, 0, 0]
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.667, y: 1 },
+                                  s: [70.367, -71.643, 0],
+                                  t: 33,
+                                  ti: [0, 0, 0],
+                                  to: [0, 0, 0]
+                                },
+                                {
+                                  o: { x: 0.333, y: 0 },
+                                  i: { x: 0.667, y: 1 },
+                                  s: [70.368, -61.643, 0],
+                                  t: 38,
+                                  ti: [0, 0, 0],
+                                  to: [0, 0, 0]
+                                },
+                                {
+                                  o: { x: 0.333, y: 0 },
+                                  i: { x: 0.667, y: 1 },
+                                  s: [70.367, -71.643, 0],
+                                  t: 43,
+                                  ti: [0, 0, 0],
+                                  to: [0, 0, 0]
+                                },
+                                {
+                                  o: { x: 0.167, y: 0 },
+                                  i: { x: 0.667, y: 1 },
+                                  s: [70.367, -61.643, 0],
+                                  t: 48,
+                                  ti: [0, 1.667, 0],
+                                  to: [0, 0, 0]
+                                },
+                                { s: [70.367, -71.643, 0], t: 52 }
+                              ],
+                              ix: 2
+                            },
+                            r: {
+                              a: 1,
+                              k: [
+                                {
+                                  o: { x: 0.333, y: 0 },
+                                  i: { x: 0.667, y: 1 },
+                                  s: [0.001],
+                                  t: -4
+                                },
+                                {
+                                  o: { x: 0.333, y: 0 },
+                                  i: { x: 0.667, y: 1 },
+                                  s: [2.001],
+                                  t: 3.353
+                                },
+                                {
+                                  o: { x: 0.333, y: 0 },
+                                  i: { x: 0.667, y: 1 },
+                                  s: [-2],
+                                  t: 10.706
+                                },
+                                {
+                                  o: { x: 0.333, y: 0 },
+                                  i: { x: 0.667, y: 1 },
+                                  s: [0.001],
+                                  t: 18.059
+                                },
+                                {
+                                  o: { x: 0.333, y: 0 },
+                                  i: { x: 0.667, y: 1 },
+                                  s: [0.001],
+                                  t: 23.941
+                                },
+                                {
+                                  o: { x: 0.333, y: 0 },
+                                  i: { x: 0.667, y: 1 },
+                                  s: [0.001],
+                                  t: 31.294
+                                },
+                                {
+                                  o: { x: 0.333, y: 0 },
+                                  i: { x: 0.667, y: 1 },
+                                  s: [-1],
+                                  t: 38.647
+                                },
+                                { s: [0.001], t: 46 }
+                              ],
+                              ix: 10
+                            },
+                            sa: { a: 0, k: 0 },
+                            o: { a: 0, k: 100, ix: 11 }
+                          },
+                          ef: [],
+                          shapes: [
+                            {
+                              ty: "gr",
+                              bm: 0,
+                              hd: false,
+                              mn: "ADBE Vector Group",
+                              nm: "Group 1",
+                              ix: 1,
+                              cix: 2,
+                              np: 2,
+                              it: [
+                                {
+                                  ty: "sh",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Shape - Group",
+                                  nm: "Path 1",
+                                  ix: 1,
+                                  d: 1,
+                                  ks: {
+                                    a: 0,
+                                    k: {
+                                      c: false,
+                                      i: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      o: [
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0],
+                                        [0, 0]
+                                      ],
+                                      v: [
+                                        [-73.5, 108.5],
+                                        [-136.5, 108.5],
+                                        [-136.5, -108.5],
+                                        [136.5, -108.5],
+                                        [136.5, 108.5],
+                                        [-3.5, 108.5]
+                                      ]
+                                    },
+                                    ix: 2
+                                  }
+                                },
+                                {
+                                  ty: "fl",
+                                  bm: 0,
+                                  hd: false,
+                                  mn: "ADBE Vector Graphic - Fill",
+                                  nm: "Fill 1",
+                                  c: {
+                                    a: 0,
+                                    k: [0.8863, 0.1098, 0.1294],
+                                    ix: 4
+                                  },
+                                  r: 1,
+                                  o: { a: 0, k: 100, ix: 5 }
+                                },
+                                {
+                                  ty: "tr",
+                                  a: { a: 0, k: [0, 0], ix: 1 },
+                                  s: { a: 0, k: [100, 100], ix: 3 },
+                                  sk: { a: 0, k: 0, ix: 4 },
+                                  p: { a: 0, k: [136.75, 108.75], ix: 2 },
+                                  r: { a: 0, k: 0, ix: 6 },
+                                  sa: { a: 0, k: 0, ix: 5 },
+                                  o: { a: 0, k: 100, ix: 7 }
+                                }
+                              ]
+                            }
+                          ],
+                          ind: 6,
+                          parent: 3
+                        }
+                      ],
+                      v: "5.5.7",
+                      fr: 25,
+                      op: 76,
+                      ip: 0,
+                      assets: []
+                    }}
+                    className={classNames("__wab_instance", sty.lottie__oqFoe)}
+                    preview={true}
+                  />
+                </div>
+              </Stack__>
+            </div>
+          </div>
+          <div className={classNames(projectcss.all, sty.freeBox__mapoa)}>
+            <div className={classNames(projectcss.all, sty.freeBox__auWd0)}>
+              <PlasmicImg__
+                alt={""}
+                className={classNames(sty.img__huEut)}
+                displayHeight={
+                  hasVariant(globalVariants, "screen", "mobileOnly")
+                    ? "90px"
+                    : "145px"
+                }
+                displayMaxHeight={"none"}
+                displayMaxWidth={"100%"}
+                displayMinHeight={"0"}
+                displayMinWidth={"0"}
+                displayWidth={
+                  hasVariant(globalVariants, "screen", "mobileOnly")
+                    ? "88px"
+                    : "152px"
+                }
+                loading={"lazy"}
+                src={{
+                  src: "/plasmic/clothes_2_wear_frontend/images/image10.jpg",
+                  fullWidth: 724,
+                  fullHeight: 825,
+                  aspectRatio: undefined
+                }}
+              />
+
+              <Stack__
+                as={"div"}
+                hasGap={true}
+                className={classNames(projectcss.all, sty.freeBox___8BP56)}
+              >
+                <Stack__
+                  as={"div"}
+                  hasGap={true}
+                  className={classNames(projectcss.all, sty.freeBox__xCUv5)}
+                >
+                  <Icon11Icon
+                    className={classNames(projectcss.all, sty.svg__pdrst)}
+                    role={"img"}
+                  />
+
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__vV7IN
+                    )}
+                  >
+                    {"Kangana Haloi"}
+                  </h1>
+                </Stack__>
+                <Stack__
+                  as={"div"}
+                  hasGap={true}
+                  className={classNames(projectcss.all, sty.freeBox__tTbUs)}
+                >
+                  <Icon12Icon
+                    className={classNames(projectcss.all, sty.svg__rkCrF)}
+                    role={"img"}
+                  />
+
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__gyTP
+                    )}
+                  >
+                    {"Kanganaranawat@gmail.com"}
+                  </h1>
+                </Stack__>
+                <Stack__
+                  as={"div"}
+                  hasGap={true}
+                  className={classNames(projectcss.all, sty.freeBox__yqOp8)}
+                >
+                  <Icon13Icon
+                    className={classNames(projectcss.all, sty.svg__lF0Mu)}
+                    role={"img"}
+                  />
+
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__spY4U
+                    )}
+                  >
+                    {"+91 863 801 9522"}
+                  </h1>
+                </Stack__>
+              </Stack__>
+            </div>
+            <div className={classNames(projectcss.all, sty.freeBox__x3HnQ)} />
+          </div>
+          <div className={classNames(projectcss.all, sty.freeBox__agAz5)}>
+            <Stack__
+              as={"div"}
+              hasGap={true}
+              className={classNames(projectcss.all, sty.freeBox__cjV23)}
+            >
+              <Stack__
+                as={"div"}
+                hasGap={true}
+                className={classNames(projectcss.all, sty.freeBox__aHg6J)}
+              >
+                <Icon9Icon
+                  className={classNames(projectcss.all, sty.svg__lefMg)}
+                  role={"img"}
+                />
+
+                <h1
+                  className={classNames(
+                    projectcss.all,
+                    projectcss.h1,
+                    projectcss.__wab_text,
+                    sty.h1__yrwdA
+                  )}
+                >
+                  {"Orders"}
+                </h1>
+                <Icon2Icon
+                  className={classNames(projectcss.all, sty.svg__qNnrJ)}
+                  role={"img"}
+                />
+              </Stack__>
+              <Stack__
+                as={"div"}
+                hasGap={true}
+                className={classNames(projectcss.all, sty.freeBox__tqTqj)}
+              >
+                <Icon7Icon
+                  className={classNames(projectcss.all, sty.svg__vUj7Y)}
+                  role={"img"}
+                />
+
+                <h1
+                  className={classNames(
+                    projectcss.all,
+                    projectcss.h1,
+                    projectcss.__wab_text,
+                    sty.h1__uqqmy
+                  )}
+                >
+                  {"Cart"}
+                </h1>
+                <Icon2Icon
+                  className={classNames(projectcss.all, sty.svg__ytajq)}
+                  role={"img"}
+                />
+              </Stack__>
+              <Stack__
+                as={"div"}
+                hasGap={true}
+                className={classNames(projectcss.all, sty.freeBox__uj7Q6)}
+              >
+                <Icon14Icon
+                  className={classNames(projectcss.all, sty.svg___0PSxA)}
+                  role={"img"}
+                />
+
+                <h1
+                  className={classNames(
+                    projectcss.all,
+                    projectcss.h1,
+                    projectcss.__wab_text,
+                    sty.h1__jkiKk
+                  )}
+                >
+                  {"Track order"}
+                </h1>
+                <Icon2Icon
+                  className={classNames(projectcss.all, sty.svg___06D5D)}
+                  role={"img"}
+                />
+              </Stack__>
+              <Stack__
+                as={"div"}
+                hasGap={true}
+                className={classNames(projectcss.all, sty.freeBox___7GnAe)}
+              >
+                <Icon15Icon
+                  className={classNames(projectcss.all, sty.svg__n2XG)}
+                  role={"img"}
+                />
+
+                <h1
+                  className={classNames(
+                    projectcss.all,
+                    projectcss.h1,
+                    projectcss.__wab_text,
+                    sty.h1__eBpMd
+                  )}
+                >
+                  {"Profile"}
+                </h1>
+                <Icon2Icon
+                  className={classNames(projectcss.all, sty.svg___82Q59)}
+                  role={"img"}
+                />
+              </Stack__>
+              <Stack__
+                as={"div"}
+                hasGap={true}
+                className={classNames(projectcss.all, sty.freeBox__gk5Ay)}
+              >
+                <Icon16Icon
+                  className={classNames(projectcss.all, sty.svg__iSuMp)}
+                  role={"img"}
+                />
+
+                <h1
+                  className={classNames(
+                    projectcss.all,
+                    projectcss.h1,
+                    projectcss.__wab_text,
+                    sty.h1__lNgC
+                  )}
+                >
+                  {"Settings"}
+                </h1>
+                <Icon2Icon
+                  className={classNames(projectcss.all, sty.svg___3Zx68)}
+                  role={"img"}
+                />
+              </Stack__>
+              <Stack__
+                as={"div"}
+                hasGap={true}
+                className={classNames(projectcss.all, sty.freeBox__lAzDf)}
+              >
+                <Icon8Icon
+                  className={classNames(projectcss.all, sty.svg__gMfKz)}
+                  role={"img"}
+                />
+
+                <h1
+                  className={classNames(
+                    projectcss.all,
+                    projectcss.h1,
+                    projectcss.__wab_text,
+                    sty.h1___5QGzH
+                  )}
+                >
+                  {"Offers"}
+                </h1>
+                <Icon2Icon
+                  className={classNames(projectcss.all, sty.svg___24Ooy)}
+                  role={"img"}
+                />
+              </Stack__>
+              <Stack__
+                as={"div"}
+                hasGap={true}
+                className={classNames(projectcss.all, sty.freeBox__rVlOa)}
+              >
+                <Icon17Icon
+                  className={classNames(projectcss.all, sty.svg__l1N1)}
+                  role={"img"}
+                />
+
+                <h1
+                  className={classNames(
+                    projectcss.all,
+                    projectcss.h1,
+                    projectcss.__wab_text,
+                    sty.h1__cZxfz
+                  )}
+                >
+                  {"Log out"}
+                </h1>
+                <Icon2Icon
+                  className={classNames(projectcss.all, sty.svg__cLec)}
+                  role={"img"}
+                />
+              </Stack__>
+            </Stack__>
+            <Stack__
+              as={"div"}
+              hasGap={true}
+              className={classNames(projectcss.all, sty.freeBox___8X8Cf)}
+            >
+              <div className={classNames(projectcss.all, sty.freeBox__a8ASk)}>
+                <Stack__
+                  as={"div"}
+                  hasGap={true}
+                  className={classNames(projectcss.all, sty.freeBox__wfl4)}
+                >
+                  <Icon16Icon
+                    className={classNames(projectcss.all, sty.svg___5T6Iy)}
+                    role={"img"}
+                  />
+
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__mtpYl
+                    )}
+                  >
+                    {"Address"}
+                  </h1>
+                  <Icon2Icon
+                    className={classNames(projectcss.all, sty.svg__rvKvy)}
+                    role={"img"}
+                  />
+                </Stack__>
+                <h1
+                  className={classNames(
+                    projectcss.all,
+                    projectcss.h1,
+                    projectcss.__wab_text,
+                    sty.h1__q6Mk0
+                  )}
+                >
+                  {
+                    "QTR No 82/A West Maligaon, Guwahati 781011. Near Raillway HS School. Boripara Pandu. Aminagao Christian Basti Goalpara Rangia"
+                  }
+                </h1>
+                <div className={classNames(projectcss.all, sty.freeBox__gBLm)}>
+                  <div
+                    className={classNames(projectcss.all, sty.freeBox__rxOxT)}
+                  >
+                    <div
+                      className={classNames(projectcss.all, sty.freeBox__flCyv)}
+                    >
+                      <h1
+                        className={classNames(
+                          projectcss.all,
+                          projectcss.h1,
+                          projectcss.__wab_text,
+                          sty.h1__k6L4P
+                        )}
+                      >
+                        {"Edit"}
+                      </h1>
+                      <Icon10Icon
+                        className={classNames(projectcss.all, sty.svg___80Kz9)}
+                        role={"img"}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Stack__>
+          </div>
+          <section
+            data-plasmic-name={"section"}
+            data-plasmic-override={overrides.section}
+            className={classNames(projectcss.all, sty.section)}
+          >
+            <div className={classNames(projectcss.all, sty.freeBox__unTf)}>
+              <div className={classNames(projectcss.all, sty.freeBox__gWGo)} />
+
+              <div className={classNames(projectcss.all, sty.freeBox__hNdct)} />
+            </div>
+            <div className={classNames(projectcss.all, sty.freeBox__k8Y5B)}>
+              <h1
+                className={classNames(
+                  projectcss.all,
+                  projectcss.h1,
+                  projectcss.__wab_text,
+                  sty.h1__yE5Mr
+                )}
+              >
+                {"CLOTHES2WEAR"}
+              </h1>
+              <h1
+                className={classNames(
+                  projectcss.all,
+                  projectcss.h1,
+                  projectcss.__wab_text,
+                  sty.h1__wL5Pz
+                )}
+              >
+                {"Shop without looking at your pocket"}
+              </h1>
+              <div className={classNames(projectcss.all, sty.freeBox__b63J)}>
+                <div
+                  className={classNames(projectcss.all, sty.freeBox__pvrcv)}
+                />
+
+                <div
+                  className={classNames(projectcss.all, sty.freeBox__t4Mx)}
+                />
+              </div>
+              <div className={classNames(projectcss.all, sty.freeBox__a0A5R)}>
+                <Stack__
+                  as={"div"}
+                  hasGap={true}
+                  className={classNames(projectcss.all, sty.freeBox__wu310)}
+                >
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1___0ZlJl
+                    )}
+                  >
+                    {"Info links"}
+                  </h1>
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__kfzzM
+                    )}
+                  >
+                    {"About us"}
+                  </h1>
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__zi0V
+                    )}
+                  >
+                    {"What we do"}
+                  </h1>
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__pmbtp
+                    )}
+                  >
+                    {"Contact us"}
+                  </h1>
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__iMq8B
+                    )}
+                  >
+                    {"Community"}
+                  </h1>
+                </Stack__>
+                <div
+                  className={classNames(projectcss.all, sty.freeBox___0NowQ)}
+                >
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__zpiNm
+                    )}
+                  >
+                    {"Subscribe for a cookie."}
+                  </h1>
+                  <div
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.__wab_text,
+                      sty.text___942B6
+                    )}
+                  >
+                    {
+                      "Enter your email address and get latest updates from clothes2wear fashion blog."
+                    }
+                  </div>
+                  <Stack__
+                    as={"div"}
+                    hasGap={true}
+                    className={classNames(projectcss.all, sty.freeBox___5M93V)}
+                  >
+                    <TextInput
+                      data-plasmic-name={"textInput2"}
+                      data-plasmic-override={overrides.textInput2}
+                      className={classNames("__wab_instance", sty.textInput2)}
+                      onChange={(...eventArgs) => {
+                        generateStateOnChangeProp($state, [
+                          "textInput2",
+                          "value"
+                        ])((e => e.target?.value).apply(null, eventArgs));
+                      }}
+                      placeholder={"Enter email address"}
+                      value={
+                        generateStateValueProp($state, [
+                          "textInput2",
+                          "value"
+                        ]) ?? ""
+                      }
+                    />
+
+                    <Button
+                      className={classNames(
+                        "__wab_instance",
+                        sty.button__cnccb
+                      )}
+                      color={
+                        hasVariant(globalVariants, "screen", "mobileOnly")
+                          ? "sand"
+                          : "sand"
+                      }
+                      size={
+                        hasVariant(globalVariants, "screen", "mobileOnly")
+                          ? "compact"
+                          : undefined
+                      }
+                    >
+                      <div
+                        className={classNames(
+                          projectcss.all,
+                          projectcss.__wab_text,
+                          sty.text__ngIiI
+                        )}
+                      >
+                        {"Subscribe"}
+                      </div>
+                    </Button>
+                  </Stack__>
+                </div>
+                <Stack__
+                  as={"div"}
+                  hasGap={true}
+                  className={classNames(projectcss.all, sty.freeBox__eylAh)}
+                >
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__ebmY
+                    )}
+                  >
+                    {"Legal"}
+                  </h1>
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__czQFs
+                    )}
+                  >
+                    {"Terms & conditions"}
+                  </h1>
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__szxkk
+                    )}
+                  >
+                    {"Privacy policy"}
+                  </h1>
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__ideZ
+                    )}
+                  >
+                    {"Refund policy"}
+                  </h1>
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__jlMeh
+                    )}
+                  >
+                    {"Return policy"}
+                  </h1>
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__gzfa1
+                    )}
+                  >
+                    {"Discount Policy"}
+                  </h1>
+                </Stack__>
+              </div>
+              <div className={classNames(projectcss.all, sty.freeBox___8Xy7P)}>
+                <Stack__
+                  as={"div"}
+                  hasGap={true}
+                  className={classNames(projectcss.all, sty.freeBox__u0N3X)}
+                >
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__fkm1H
+                    )}
+                  >
+                    {"Info links"}
+                  </h1>
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__d9E6X
+                    )}
+                  >
+                    {"About us"}
+                  </h1>
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__nojaC
+                    )}
+                  >
+                    {"What we do"}
+                  </h1>
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__osj91
+                    )}
+                  >
+                    {"Contact us"}
+                  </h1>
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__hXjGd
+                    )}
+                  >
+                    {"Community"}
+                  </h1>
+                </Stack__>
+                <Stack__
+                  as={"div"}
+                  hasGap={true}
+                  className={classNames(projectcss.all, sty.freeBox__rXliF)}
+                >
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__c6S53
+                    )}
+                  >
+                    {"Legal"}
+                  </h1>
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__ktJq
+                    )}
+                  >
+                    {"Terms & conditions"}
+                  </h1>
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__g1VCk
+                    )}
+                  >
+                    {"Privacy policy"}
+                  </h1>
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__ccQ
+                    )}
+                  >
+                    {"Refund policy"}
+                  </h1>
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__pNtPm
+                    )}
+                  >
+                    {"Return policy"}
+                  </h1>
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__rNb6V
+                    )}
+                  >
+                    {"Discount Policy"}
+                  </h1>
+                </Stack__>
+              </div>
+              {(
+                hasVariant(globalVariants, "screen", "mobileOnly")
+                  ? true
+                  : false
+              ) ? (
+                <div className={classNames(projectcss.all, sty.freeBox__xmomk)}>
+                  <h1
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.h1,
+                      projectcss.__wab_text,
+                      sty.h1__c74Y1
+                    )}
+                  >
+                    {"Subscribe for a cookie."}
+                  </h1>
+                  <div
+                    className={classNames(
+                      projectcss.all,
+                      projectcss.__wab_text,
+                      sty.text__cZpA
+                    )}
+                  >
+                    {
+                      "Enter your email address and get latest updates from clothes2wear fashion blog."
+                    }
+                  </div>
+                  <Stack__
+                    as={"div"}
+                    hasGap={true}
+                    className={classNames(projectcss.all, sty.freeBox__y5BZp)}
+                  >
+                    <TextInput
+                      data-plasmic-name={"textInput3"}
+                      data-plasmic-override={overrides.textInput3}
+                      className={classNames("__wab_instance", sty.textInput3)}
+                      onChange={(...eventArgs) => {
+                        generateStateOnChangeProp($state, [
+                          "textInput3",
+                          "value"
+                        ])((e => e.target?.value).apply(null, eventArgs));
+                      }}
+                      placeholder={"Enter email address"}
+                      value={
+                        generateStateValueProp($state, [
+                          "textInput3",
+                          "value"
+                        ]) ?? ""
+                      }
+                    />
+
+                    <Button
+                      className={classNames(
+                        "__wab_instance",
+                        sty.button__mHcgf
+                      )}
+                      color={
+                        hasVariant(globalVariants, "screen", "mobileOnly")
+                          ? "sand"
+                          : "sand"
+                      }
+                      size={
+                        hasVariant(globalVariants, "screen", "mobileOnly")
+                          ? "compact"
+                          : undefined
+                      }
+                    >
+                      <div
+                        className={classNames(
+                          projectcss.all,
+                          projectcss.__wab_text,
+                          sty.text__p2H9
+                        )}
+                      >
+                        {"Subscribe"}
+                      </div>
+                    </Button>
+                  </Stack__>
+                </div>
+              ) : null}
+              <div className={classNames(projectcss.all, sty.freeBox___5OsG)}>
+                <h1
+                  className={classNames(
+                    projectcss.all,
+                    projectcss.h1,
+                    projectcss.__wab_text,
+                    sty.h1__fz014
+                  )}
+                >
+                  {"2024 Clothes2Wear All Rights Reserved. "}
+                </h1>
+                <h1
+                  className={classNames(
+                    projectcss.all,
+                    projectcss.h1,
+                    projectcss.__wab_text,
+                    sty.h1__tJQ7
+                  )}
+                >
+                  {"Made with \u2764\ufe0f@myloveankyy"}
+                </h1>
+                <PlasmicImg__
+                  alt={""}
+                  className={classNames(sty.img__wdCxi)}
+                  displayHeight={
+                    hasVariant(globalVariants, "screen", "mobileOnly")
+                      ? "14px"
+                      : "34px"
+                  }
+                  displayMaxHeight={"none"}
+                  displayMaxWidth={"100%"}
+                  displayMinHeight={"0"}
+                  displayMinWidth={"0"}
+                  displayWidth={
+                    hasVariant(globalVariants, "screen", "mobileOnly")
+                      ? "14px"
+                      : "34px"
+                  }
+                  loading={"lazy"}
+                  src={
+                    "https://cdn.shopify.com/shopifycloud/web/assets/v1/71a20f5a6c5413cb6973c9de6142e23a022a37ab62ce41ad2ac6abb420a46fc0.svg"
+                  }
+                />
+
+                <PlasmicImg__
+                  alt={""}
+                  className={classNames(sty.img__grpVz)}
+                  displayHeight={
+                    hasVariant(globalVariants, "screen", "mobileOnly")
+                      ? "14px"
+                      : "34px"
+                  }
+                  displayMaxHeight={"none"}
+                  displayMaxWidth={"100%"}
+                  displayMinHeight={"0"}
+                  displayMinWidth={"0"}
+                  displayWidth={
+                    hasVariant(globalVariants, "screen", "mobileOnly")
+                      ? "14px"
+                      : "42px"
+                  }
+                  loading={"lazy"}
+                  src={
+                    "https://cdn.shopify.com/shopifycloud/web/assets/v1/2659ae94c062303bc1e52715342bdcb307c19b65ffa10a48adb70dfd76843adf.svg"
+                  }
+                />
+
+                <PlasmicImg__
+                  alt={""}
+                  className={classNames(sty.img__qgbYw)}
+                  displayHeight={
+                    hasVariant(globalVariants, "screen", "mobileOnly")
+                      ? "14px"
+                      : "34px"
+                  }
+                  displayMaxHeight={"none"}
+                  displayMaxWidth={"100%"}
+                  displayMinHeight={"0"}
+                  displayMinWidth={"0"}
+                  displayWidth={
+                    hasVariant(globalVariants, "screen", "mobileOnly")
+                      ? "14px"
+                      : "42px"
+                  }
+                  loading={"lazy"}
+                  src={
+                    "https://cdn.shopify.com/shopifycloud/web/assets/v1/e25a7074e5137f8c8e3b5f1b6146ee42f09f8db31d634756b343cd83b16db851.svg"
+                  }
+                />
+
+                <PlasmicImg__
+                  alt={""}
+                  className={classNames(sty.img__hlF9Y)}
+                  displayHeight={
+                    hasVariant(globalVariants, "screen", "mobileOnly")
+                      ? "14px"
+                      : "34px"
+                  }
+                  displayMaxHeight={"none"}
+                  displayMaxWidth={"100%"}
+                  displayMinHeight={"0"}
+                  displayMinWidth={"0"}
+                  displayWidth={
+                    hasVariant(globalVariants, "screen", "mobileOnly")
+                      ? "14px"
+                      : "42px"
+                  }
+                  loading={"lazy"}
+                  src={
+                    "https://cdn.shopify.com/shopifycloud/web/assets/v1/5be607cfff6582462faba7a671e15328c8002dfb92e5b2f8bffb21b1e56d241f.svg"
+                  }
+                />
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </React.Fragment>
@@ -663,10 +14059,11 @@ const PlasmicDescendants = {
     "categoryStack",
     "dataFetcher",
     "categoryBtn",
-    "h1",
-    "button",
     "drawer2",
-    "dataFetcher3"
+    "dataFetcher3",
+    "section",
+    "textInput2",
+    "textInput3"
   ],
   announcement: ["announcement"],
   headerSection: [
@@ -679,8 +14076,6 @@ const PlasmicDescendants = {
     "categoryStack",
     "dataFetcher",
     "categoryBtn",
-    "h1",
-    "button",
     "drawer2",
     "dataFetcher3"
   ],
@@ -689,13 +14084,14 @@ const PlasmicDescendants = {
   buttonSections: ["buttonSections", "dataFetcher2", "link"],
   dataFetcher2: ["dataFetcher2", "link"],
   link: ["link"],
-  categoryStack: ["categoryStack", "dataFetcher", "categoryBtn", "h1"],
-  dataFetcher: ["dataFetcher", "categoryBtn", "h1"],
-  categoryBtn: ["categoryBtn", "h1"],
-  h1: ["h1"],
-  button: ["button", "drawer2"],
+  categoryStack: ["categoryStack", "dataFetcher", "categoryBtn"],
+  dataFetcher: ["dataFetcher", "categoryBtn"],
+  categoryBtn: ["categoryBtn"],
   drawer2: ["drawer2"],
-  dataFetcher3: ["dataFetcher3"]
+  dataFetcher3: ["dataFetcher3"],
+  section: ["section", "textInput2", "textInput3"],
+  textInput2: ["textInput2"],
+  textInput3: ["textInput3"]
 } as const;
 type NodeNameType = keyof typeof PlasmicDescendants;
 type DescendantsType<T extends NodeNameType> =
@@ -712,10 +14108,11 @@ type NodeDefaultElementType = {
   categoryStack: "div";
   dataFetcher: typeof Fetcher;
   categoryBtn: "div";
-  h1: "h1";
-  button: typeof Button;
   drawer2: typeof Drawer2;
   dataFetcher3: typeof Fetcher;
+  section: "section";
+  textInput2: typeof TextInput;
+  textInput3: typeof TextInput;
 };
 
 type ReservedPropsType = "variants" | "args" | "overrides";
@@ -788,10 +14185,11 @@ export const PlasmicMyAccountPage = Object.assign(
     categoryStack: makeNodeComponent("categoryStack"),
     dataFetcher: makeNodeComponent("dataFetcher"),
     categoryBtn: makeNodeComponent("categoryBtn"),
-    h1: makeNodeComponent("h1"),
-    button: makeNodeComponent("button"),
     drawer2: makeNodeComponent("drawer2"),
     dataFetcher3: makeNodeComponent("dataFetcher3"),
+    section: makeNodeComponent("section"),
+    textInput2: makeNodeComponent("textInput2"),
+    textInput3: makeNodeComponent("textInput3"),
 
     // Metadata about props expected for PlasmicMyAccountPage
     internalVariantProps: PlasmicMyAccountPage__VariantProps,

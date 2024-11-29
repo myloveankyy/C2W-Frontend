@@ -1,5 +1,16 @@
 {
-  "props": [],
+  "props": [
+    {
+      "name": "System: Bg Container",
+      "type": "color",
+      "value": "var(--antd-colorBgContainer)",
+      "category": "color",
+      "meta": {
+        "projectId": "dZbt1US7JmqH4GfLm2r4uE",
+        "id": "xBZesykgWh1t"
+      }
+    }
+  ],
   "global": {
     "meta": {
       "source": "plasmic.app"

@@ -571,6 +571,41 @@
           "id": "rHKUwRg_gWWs",
           "name": "YoutubeSvgIcon",
           "moduleFilePath": "plasmic/clothes_2_wear_frontend/icons/PlasmicIcon__YoutubeSvg.tsx"
+        },
+        {
+          "id": "AELhgG3mYfl7",
+          "name": "Icon12Icon",
+          "moduleFilePath": "plasmic/clothes_2_wear_frontend/icons/PlasmicIcon__Icon12.tsx"
+        },
+        {
+          "id": "u5QTbge-kKYC",
+          "name": "Icon13Icon",
+          "moduleFilePath": "plasmic/clothes_2_wear_frontend/icons/PlasmicIcon__Icon13.tsx"
+        },
+        {
+          "id": "U0HLDgPQr_5a",
+          "name": "Icon9Icon",
+          "moduleFilePath": "plasmic/clothes_2_wear_frontend/icons/PlasmicIcon__Icon9.tsx"
+        },
+        {
+          "id": "f1a5hkpnJoYe",
+          "name": "Icon14Icon",
+          "moduleFilePath": "plasmic/clothes_2_wear_frontend/icons/PlasmicIcon__Icon14.tsx"
+        },
+        {
+          "id": "IyCtl8dE2dO4",
+          "name": "Icon15Icon",
+          "moduleFilePath": "plasmic/clothes_2_wear_frontend/icons/PlasmicIcon__Icon15.tsx"
+        },
+        {
+          "id": "-u_6QIGSECgc",
+          "name": "Icon16Icon",
+          "moduleFilePath": "plasmic/clothes_2_wear_frontend/icons/PlasmicIcon__Icon16.tsx"
+        },
+        {
+          "id": "Q4F_sOw14T8F",
+          "name": "Icon17Icon",
+          "moduleFilePath": "plasmic/clothes_2_wear_frontend/icons/PlasmicIcon__Icon17.tsx"
         }
       ],
       "images": [
@@ -588,6 +623,11 @@
           "id": "v4PcoL2D_k2k",
           "name": "C2W FULL.png",
           "filePath": "../public/plasmic/clothes_2_wear_frontend/images/c2WFullPng.png"
+        },
+        {
+          "id": "4K8J8A7PMW4q",
+          "name": "image 10",
+          "filePath": "../public/plasmic/clothes_2_wear_frontend/images/image10.jpg"
         }
       ],
       "indirect": false,
