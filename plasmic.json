@@ -480,6 +480,20 @@
           "cssFilePath": "plasmic/clothes_2_wear_frontend/PlasmicSbsProducts.module.css",
           "scheme": "blackbox",
           "componentType": "component"
+        },
+        {
+          "id": "bZwk4OduRHui",
+          "name": "MyAccountPage",
+          "type": "managed",
+          "projectId": "dZbt1US7JmqH4GfLm2r4uE",
+          "renderModuleFilePath": "plasmic/clothes_2_wear_frontend/PlasmicMyAccountPage.tsx",
+          "importSpec": {
+            "modulePath": "../pages/my-account-page.tsx"
+          },
+          "cssFilePath": "plasmic/clothes_2_wear_frontend/PlasmicMyAccountPage.module.css",
+          "scheme": "blackbox",
+          "componentType": "page",
+          "path": "/my-account-page"
         }
       ],
       "icons": [
