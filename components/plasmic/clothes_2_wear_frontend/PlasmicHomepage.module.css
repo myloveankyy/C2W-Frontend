@@ -192,7 +192,7 @@
   max-width: 100%;
   object-fit: cover;
 }
-.link {
+.link___37Xg {
   display: flex;
   flex-direction: row;
   position: relative;
@@ -233,7 +233,7 @@
   text-decoration-line: none;
   text-overflow: clip;
 }
-.freeBox__lumb6 {
+.link__lumb6 {
   display: flex;
   flex-direction: row;
   position: relative;
@@ -646,7 +646,7 @@
   padding-left: 60px;
   padding-right: 60px;
   padding-top: 18px;
-  background: #ffffff;
+  background: none;
   grid-column-start: 1 !important;
   grid-column-end: -1 !important;
   grid-template-columns:
