@@ -118,7 +118,6 @@ export type PlasmicMyAccountPage__OverridesType = {
   textInput?: Flex__<typeof TextInput>;
   buttonSections?: Flex__<"div">;
   dataFetcher2?: Flex__<typeof Fetcher>;
-  link?: Flex__<"a"> & Partial<LinkProps>;
   categoryStack?: Flex__<"div">;
   dataFetcher?: Flex__<typeof Fetcher>;
   categoryBtn?: Flex__<"div">;
@@ -382,12 +381,10 @@ function PlasmicMyAccountPage__RenderFunc(props: {
                       const currentIndex = __plasmic_idx_0;
                       return (
                         <PlasmicLink__
-                          data-plasmic-name={"link"}
-                          data-plasmic-override={overrides.link}
                           className={classNames(
                             projectcss.all,
                             projectcss.a,
-                            sty.link
+                            sty.link__hkWl
                           )}
                           component={Link}
                           key={currentIndex}
@@ -13137,7 +13134,7 @@ function PlasmicMyAccountPage__RenderFunc(props: {
                 displayHeight={
                   hasVariant(globalVariants, "screen", "mobileOnly")
                     ? "90px"
-                    : "145px"
+                    : "166px"
                 }
                 displayMaxHeight={"none"}
                 displayMaxWidth={"100%"}
@@ -13236,9 +13233,15 @@ function PlasmicMyAccountPage__RenderFunc(props: {
               className={classNames(projectcss.all, sty.freeBox__cjV23)}
             >
               <Stack__
-                as={"div"}
+                as={PlasmicLink__}
                 hasGap={true}
-                className={classNames(projectcss.all, sty.freeBox__aHg6J)}
+                className={classNames(
+                  projectcss.all,
+                  projectcss.a,
+                  sty.link__aHg6J
+                )}
+                component={Link}
+                platform={"nextjs"}
               >
                 <Icon9Icon
                   className={classNames(projectcss.all, sty.svg__lefMg)}
@@ -13261,9 +13264,15 @@ function PlasmicMyAccountPage__RenderFunc(props: {
                 />
               </Stack__>
               <Stack__
-                as={"div"}
+                as={PlasmicLink__}
                 hasGap={true}
-                className={classNames(projectcss.all, sty.freeBox__tqTqj)}
+                className={classNames(
+                  projectcss.all,
+                  projectcss.a,
+                  sty.link__tqTqj
+                )}
+                component={Link}
+                platform={"nextjs"}
               >
                 <Icon7Icon
                   className={classNames(projectcss.all, sty.svg__vUj7Y)}
@@ -13286,9 +13295,15 @@ function PlasmicMyAccountPage__RenderFunc(props: {
                 />
               </Stack__>
               <Stack__
-                as={"div"}
+                as={PlasmicLink__}
                 hasGap={true}
-                className={classNames(projectcss.all, sty.freeBox__uj7Q6)}
+                className={classNames(
+                  projectcss.all,
+                  projectcss.a,
+                  sty.link__uj7Q6
+                )}
+                component={Link}
+                platform={"nextjs"}
               >
                 <Icon14Icon
                   className={classNames(projectcss.all, sty.svg___0PSxA)}
@@ -13311,9 +13326,15 @@ function PlasmicMyAccountPage__RenderFunc(props: {
                 />
               </Stack__>
               <Stack__
-                as={"div"}
+                as={PlasmicLink__}
                 hasGap={true}
-                className={classNames(projectcss.all, sty.freeBox___7GnAe)}
+                className={classNames(
+                  projectcss.all,
+                  projectcss.a,
+                  sty.link___7GnAe
+                )}
+                component={Link}
+                platform={"nextjs"}
               >
                 <Icon15Icon
                   className={classNames(projectcss.all, sty.svg__n2XG)}
@@ -13336,9 +13357,15 @@ function PlasmicMyAccountPage__RenderFunc(props: {
                 />
               </Stack__>
               <Stack__
-                as={"div"}
+                as={PlasmicLink__}
                 hasGap={true}
-                className={classNames(projectcss.all, sty.freeBox__gk5Ay)}
+                className={classNames(
+                  projectcss.all,
+                  projectcss.a,
+                  sty.link__gk5Ay
+                )}
+                component={Link}
+                platform={"nextjs"}
               >
                 <Icon16Icon
                   className={classNames(projectcss.all, sty.svg__iSuMp)}
@@ -13361,9 +13388,15 @@ function PlasmicMyAccountPage__RenderFunc(props: {
                 />
               </Stack__>
               <Stack__
-                as={"div"}
+                as={PlasmicLink__}
                 hasGap={true}
-                className={classNames(projectcss.all, sty.freeBox__lAzDf)}
+                className={classNames(
+                  projectcss.all,
+                  projectcss.a,
+                  sty.link__lAzDf
+                )}
+                component={Link}
+                platform={"nextjs"}
               >
                 <Icon8Icon
                   className={classNames(projectcss.all, sty.svg__gMfKz)}
@@ -13386,9 +13419,15 @@ function PlasmicMyAccountPage__RenderFunc(props: {
                 />
               </Stack__>
               <Stack__
-                as={"div"}
+                as={PlasmicLink__}
                 hasGap={true}
-                className={classNames(projectcss.all, sty.freeBox__rVlOa)}
+                className={classNames(
+                  projectcss.all,
+                  projectcss.a,
+                  sty.link__rVlOa
+                )}
+                component={Link}
+                platform={"nextjs"}
               >
                 <Icon17Icon
                   className={classNames(projectcss.all, sty.svg__l1N1)}
@@ -14055,7 +14094,6 @@ const PlasmicDescendants = {
     "textInput",
     "buttonSections",
     "dataFetcher2",
-    "link",
     "categoryStack",
     "dataFetcher",
     "categoryBtn",
@@ -14072,18 +14110,16 @@ const PlasmicDescendants = {
     "textInput",
     "buttonSections",
     "dataFetcher2",
-    "link",
     "categoryStack",
     "dataFetcher",
     "categoryBtn",
     "drawer2",
     "dataFetcher3"
   ],
-  header: ["header", "textInput", "buttonSections", "dataFetcher2", "link"],
+  header: ["header", "textInput", "buttonSections", "dataFetcher2"],
   textInput: ["textInput"],
-  buttonSections: ["buttonSections", "dataFetcher2", "link"],
-  dataFetcher2: ["dataFetcher2", "link"],
-  link: ["link"],
+  buttonSections: ["buttonSections", "dataFetcher2"],
+  dataFetcher2: ["dataFetcher2"],
   categoryStack: ["categoryStack", "dataFetcher", "categoryBtn"],
   dataFetcher: ["dataFetcher", "categoryBtn"],
   categoryBtn: ["categoryBtn"],
@@ -14104,7 +14140,6 @@ type NodeDefaultElementType = {
   textInput: typeof TextInput;
   buttonSections: "div";
   dataFetcher2: typeof Fetcher;
-  link: "a";
   categoryStack: "div";
   dataFetcher: typeof Fetcher;
   categoryBtn: "div";
@@ -14181,7 +14216,6 @@ export const PlasmicMyAccountPage = Object.assign(
     textInput: makeNodeComponent("textInput"),
     buttonSections: makeNodeComponent("buttonSections"),
     dataFetcher2: makeNodeComponent("dataFetcher2"),
-    link: makeNodeComponent("link"),
     categoryStack: makeNodeComponent("categoryStack"),
     dataFetcher: makeNodeComponent("dataFetcher"),
     categoryBtn: makeNodeComponent("categoryBtn"),
